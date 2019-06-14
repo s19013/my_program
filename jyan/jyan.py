@@ -1,51 +1,24 @@
 import random
 import sys
 
-def jyankeng():
-    enemycard=["d","e","f"]
+# 判定とコンピュータの処理を短くする
+#
 
+hand={1:"グー",2:"チョキ",3:"パー"}
+
+def print_result(your_hand,com_hand):
+    print("あなた:{} com:{}".format(your_hand,com_hand))
+
+
+while True:
     print("じゃんけん")
-    #you
-    you=input("[グー:a　チョキ:b　パー:c]")
+    # you
+    print("{}\n数字を入力してください:".format(hand))
+    your_num=int(input())
 
-    if you=="a":
-        print("あなた:グー")
-    elif you=="b":
-        print("あなた:チョキ")
-    else:
-        print("あなた:パー")
-    #enemy
-    enemy=random.choice(enemycard)
-    if enemy=="d":
-        print("敵:グー")
-    if enemy=="e":
-        print("敵:チョキ")
-    if enemy=="f" :
-        print("敵:パー")
-    #you=a
-    if you=="a" and enemy=="d":
-        print("あいこ")
-        return True
-    if you=="a" and enemy=="e":
-        print("勝ち")
-    if you=="a" and enemy=="f":
-        print("負け")
-    if you=="b" and enemy=="d":
-        print("勝ち")
-    if you=="b" and enemy=="e":
-        print("あいこ")
-        return True
-    if you=="b" and enemy=="f":
-        print("負け")
-    if you=="c" and enemy=="d":
-        print("勝ち")
-    if you=="c" and enemy=="e":
-        print("負け")
-    if you=="c" and enemy=="f":
-        print("あいこ")
-        return True
 
-if __name__== "__main__":
-    q = True
-    while(q) :
-        q = jyankeng()
+    com_num=random.randint(1,3)
+
+    print_result(hand[your_num],hand[com_num])
+
+    
