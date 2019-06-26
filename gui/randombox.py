@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox as mbox
 import random
-#def
+
 def ok_click():
     s=textbox1.get()
     box=s.split()
     cou=textbox2.get()
-    result["text"]=random.sample(box,cou)
+    result["text"]=random.sample(box,int(cou))
 
 
 #win
