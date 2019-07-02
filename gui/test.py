@@ -8,5 +8,5 @@ for i in range(25):
     a.place(x=0,y=i*50)
     b=tk.Label(win,text="|\n"*500)
     b.place(x=i*50,y=0)
-
+aaaaaaa
 win.mainloop()
