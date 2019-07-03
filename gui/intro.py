@@ -1,7 +1,7 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox as mbox
-from tkinter import ttk
 
 #ウィンドウ
 win=tk.Tk()
@@ -22,6 +22,8 @@ def ok():
     mbox.showinfo("確認", "あなたは{}で{}年{}月{}日生まれの{}型ですね".format(sex,year.get(),manth.get(),day.get(),blat))
 
 #部品
+#名前入力
+
 #ラジオボタン
 #blat
 radio_blat=tk.IntVar()
@@ -60,6 +62,7 @@ day_cb.bind("<<ComboboxSelected>>",day_cb_selected)
 day_cb["values"]=(list(range(1, 32)))
 day_cb.set("1")
 #表示
+#名前
 #blat
 Lblat.grid(row=0, column=0,sticky=tk.W)
 radio_blat_a.grid(row=1, column=0)
