@@ -19,7 +19,7 @@ def ok():
     sex_list=["男","女"]
     blat=blat_list[radio_blat.get()]
     sex=sex_list[radio_sex.get()]
-    mbox.showinfo("確認", "あなたは{}で{}型ですね".format(sex,blat))
+    mbox.showinfo("確認", "あなたは{}で{}年{}月{}日生まれの{}型ですね".format(sex,year.get(),manth.get(),day.get(),blat))
 
 #部品
 #ラジオボタン
@@ -61,18 +61,18 @@ day_cb["values"]=(list(range(1, 32)))
 day_cb.set("1")
 #表示
 #blat
-Lblat.grid(row=0, column=0)
+Lblat.grid(row=0, column=0,sticky=tk.W)
 radio_blat_a.grid(row=1, column=0)
 radio_blat_b.grid(row=1, column=1)
 radio_blat_ab.grid(row=1, column=2)
 radio_blat_o.grid(row=1, column=3)
-#sex
-Lsex.grid(row=2,column=0)
+#性別
+Lsex.grid(row=2,column=0,sticky=tk.W)
 radio_sex_male.grid(row=3,column=0)
 radio_sex_female.grid(row=3,column=1)
 #ドロップ
-Ldrop.grid(row=5,column=0)
-year_cb.grid(row=7,column=0)
+Ldrop.grid(row=5,column=0,sticky=tk.W,pady=10,columnspan=4)
+year_cb.grid(row=7,column=0,sticky=tk.N+tk.E+tk.S)
 manth_cb.grid(row=7,column=1)
 day_cb.grid(row=7,column=2)
 #ボタン
