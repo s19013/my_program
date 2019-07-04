@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox as mbox
@@ -23,7 +23,10 @@ def ok():
 
 #部品
 #名前入力
-
+Lmyouzi=tk.Label(win,text="")
+myouzi=tk.Entry()
+Lnamae=tk.Label(win,text="")
+namae=tk.Entry()
 #ラジオボタン
 #blat
 radio_blat=tk.IntVar()
@@ -63,6 +66,10 @@ day_cb["values"]=(list(range(1, 32)))
 day_cb.set("1")
 #表示
 #名前
+Lmyouzi.grid(row=0,column=0,sticky=tk.W)
+Lnamae.grid(row=0,column=1,)
+myouzi.grid(row=1,column=0)
+namae.grid(row=1,column=1)
 #blat
 Lblat.grid(row=0, column=0,sticky=tk.W)
 radio_blat_a.grid(row=1, column=0)
