@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox as mbox
@@ -23,9 +23,9 @@ def ok():
 
 #部品
 #名前入力
-Lmyouzi=tk.Label(win,text="")
+Lmyouzi=tk.Label(win,text="名字")
 myouzi=tk.Entry()
-Lnamae=tk.Label(win,text="")
+Lnamae=tk.Label(win,text="名前")
 namae=tk.Entry()
 #ラジオボタン
 #blat
@@ -67,24 +67,26 @@ day_cb.set("1")
 #表示
 #名前
 Lmyouzi.grid(row=0,column=0,sticky=tk.W)
-Lnamae.grid(row=0,column=1,)
-myouzi.grid(row=1,column=0)
-namae.grid(row=1,column=1)
+Lnamae.grid(row=0,column=2,sticky=tk.W)
+myouzi.grid(row=1,column=0,columnspan=3,sticky=tk.W)
+namae.grid(row=1,column=2,columnspan=3)
 #blat
-Lblat.grid(row=0, column=0,sticky=tk.W)
-radio_blat_a.grid(row=1, column=0)
-radio_blat_b.grid(row=1, column=1)
-radio_blat_ab.grid(row=1, column=2)
-radio_blat_o.grid(row=1, column=3)
+Lblat.grid(row=2, column=0,sticky=tk.W)
+radio_blat_a.grid(row=3, column=0)
+radio_blat_b.grid(row=3, column=1)
+radio_blat_ab.grid(row=3, column=2)
+radio_blat_o.grid(row=3, column=3)
 #性別
-Lsex.grid(row=2,column=0,sticky=tk.W)
-radio_sex_male.grid(row=3,column=0)
-radio_sex_female.grid(row=3,column=1)
+Lsex.grid(row=4,column=0,sticky=tk.W)
+radio_sex_male.grid(row=5,column=0)
+radio_sex_female.grid(row=5,column=1)
 #ドロップ
-Ldrop.grid(row=5,column=0,sticky=tk.W,pady=10,columnspan=4)
-year_cb.grid(row=7,column=0,sticky=tk.N+tk.E+tk.S)
-manth_cb.grid(row=7,column=1)
-day_cb.grid(row=7,column=2)
+Ldrop.grid(row=6,column=0,sticky=tk.W,pady=10,columnspan=4)
+year_cb.grid(row=8,column=0,sticky=tk.N+tk.E+tk.S)
+manth_cb.grid(row=8,column=1)
+day_cb.grid(row=8,column=2)
 #ボタン
 button_ok.place(x=220,y=300)
 win.mainloop()
+
+#サブスクリーン
