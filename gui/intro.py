@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox as mbox
 from tkinter import font
+from time import sleep
 #ウィンドウ
 win=tk.Tk()
 win.geometry("500x500")
@@ -15,6 +16,15 @@ def manth_cb_selected(event):
 def day_cb_selected(event):
     print(day.get())
 def ok():
+    def ok_click():
+        info.grid_remove()
+        okbutton.grid_remove()
+        backbutton.grid_remove()
+        info2=tk.Label(sub_win,justify="left",font=info_font,
+        text="登録しました")
+        info2.grid(row=0,column=0)
+        sleep(3)
+        
     info_font=font.Font(size=15)
     sub_win=Toplevel()
     sub_win.geometry("500x500")
@@ -30,6 +40,10 @@ def ok():
     生年月日:{}年{}月{}日"""
     .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get()))
     info.grid(row=0,column=0,columnspan=4)
+    okbutton=tk.Button(sub_win,text="ok",command=ok_click)
+    okbutton.grid(row=1,column=1)
+    backbutton=tk.Button(sub_win,text="back",command=lambda: sub_win.destroy())
+    backbutton.grid(row=1,column=3)
 
 #部品
 #名前入力
