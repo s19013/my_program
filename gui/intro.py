@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox as mbox
-
+from tkinter import font
 #ウィンドウ
 win=tk.Tk()
 win.geometry("500x500")
@@ -15,11 +15,21 @@ def manth_cb_selected(event):
 def day_cb_selected(event):
     print(day.get())
 def ok():
+    info_font=font.Font(size=15)
+    sub_win=Toplevel()
+    sub_win.geometry("500x500")
     blat_list=["a","b","ab","o"]
     sex_list=["男","女"]
     blat=blat_list[radio_blat.get()]
     sex=sex_list[radio_sex.get()]
-    mbox.showinfo("確認", "あなたは{}で{}年{}月{}日生まれの{}型ですね".format(sex,year.get(),manth.get(),day.get(),blat))
+    info=tk.Label(sub_win,justify="left",font=info_font,
+    text="""   ご確認ください\n
+    名字:{}  名前:{}\n
+    血液型:{}\n
+    性別:{}\n
+    生年月日:{}年{}月{}日"""
+    .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get()))
+    info.grid(row=0,column=0,columnspan=4)
 
 #部品
 #名前入力
