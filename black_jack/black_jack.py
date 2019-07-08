@@ -15,9 +15,9 @@ def cont(con):
 def game():
     def battle(yourcard,comcard):
         if yourcard > comcard:
-            print("勝ち")
+            print("勝ち\n♪。* ゜ルン + ヽ(o´∀｀o)ノ。* ゜ + ルン。・゜・♪")
         elif yourcard < comcard:
-            print("負け")
+            print("負け\n(ﾉд-｡)ｸｽﾝ")
         else:
             print("引き分け")
 #-----------------------------------------------------
@@ -32,7 +32,7 @@ def game():
     while True:
         if sum(yourcard)>21:
             print(sum(yourcard))
-            print("バーストしました")
+            print("バーストしました (ﾉд-｡)ｸｽﾝ")
             print("ゲームオーバー")
             sys.exit()
             break
