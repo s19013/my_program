@@ -11,12 +11,6 @@ win=tk.Tk()
 win.geometry("500x500")
 
 #関数
-def year_cb_selected(event):
-    print(year.get())
-def manth_cb_selected(event):
-    print(manth.get())
-def day_cb_selected(event):
-    print(day.get())
 def ok():
     def ok_click():
         info.grid_remove()
@@ -106,19 +100,16 @@ Ldrop=tk.Label(win,text="生年月日を選んでください[年/月/日]")
 #year
 year=StringVar()
 year_cb=ttk.Combobox(win,textvariable=year,width=10)
-year_cb.bind("<<ComboboxSelected>>",year_cb_selected)
 year_cb["values"]=(list(range(1900, 2020)))
 year_cb.set("2019")
 #manth
 manth=StringVar()
 manth_cb=ttk.Combobox(win,textvariable=manth,width=10)
-manth_cb.bind("<<ComboboxSelected>>",manth_cb_selected)
 manth_cb["values"]=(list(range(1, 13)))
 manth_cb.set("1")
 #day
 day=StringVar()
 day_cb=ttk.Combobox(win,textvariable=day,width=10)
-day_cb.bind("<<ComboboxSelected>>",day_cb_selected)
 day_cb["values"]=(list(range(1, 32)))
 day_cb.set("1")
 #addres
