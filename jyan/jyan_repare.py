@@ -31,7 +31,7 @@ def game():
             print("\n------------------------")
             print("あいこで")
             print(hand)
-        
+        #↓ここの（com_num）がさっきのと同じやつしかださな
             while True:
                 try:
                     your_num2 = int(input())
