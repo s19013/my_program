@@ -32,9 +32,9 @@ def game():
             print("あいこで")
             print(hand)
         #↓ここの（com_num）がさっきのと同じやつしか
-            com_num2 = random.randint(0, 2)
             while True:
                 try:
+                    com_num2 = random.randint(0, 2)
                     your_num2 = int(input())
                     break
                 except:
@@ -49,11 +49,11 @@ def game():
     hand={0:"グー",1:"チョキ",2:"パー"}
     print("------------------------")
     print("じゃんけん")
-    com_num = random.randint(0, 2)
     while True:
         #なぜtryを使うとifを使わずに処理できるのか調べる
         try:#breakするまで繰り返す
             print("{}\n数字を入力してください:".format(hand))
+            com_num = random.randint(0, 2)
             your_num = int(input())
             break;
         except:
