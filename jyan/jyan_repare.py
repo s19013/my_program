@@ -31,11 +31,11 @@ def game():
             print("\n------------------------")
             print("あいこで")
             print(hand)
-        #↓ここの（com_num）がさっきのと同じやつしかださな
+        #↓ここの（com_num）がさっきのと同じやつしか
+            com_num2 = random.randint(0, 2)
             while True:
                 try:
                     your_num2 = int(input())
-                    com_num2 = random.randint(0, 2)
                     break
                 except:
                     print("正しい数字を入れてください")
