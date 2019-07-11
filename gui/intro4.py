@@ -13,6 +13,18 @@ win.geometry("500x500")
 #関数
 def ok():
     def ok_click():
+        filename=myouzi.get()
+        file = open('{}.txt'.format(filename), 'w')
+        file.write("""
+        名字:{}  名前:{}\n
+        血液型:{}\n
+        性別:{}\n
+        生年月日:{}年{}月{}日\n
+        メールアドレス:{}\n
+        パスワード:{}\n
+        """
+        .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get()))
+        file.close()
         info.grid_remove()
         okbutton.grid_remove()
         backbutton.grid_remove()
@@ -20,36 +32,9 @@ def ok():
         info2.pack()
         quitbutton=tk.Button(sub_win,text="quit",command=lambda: sub_win.quit())
         quitbutton.pack()
-        # SMTP認証情報
-        account = "s19013@std.it-college.ac.jp"
-        password = "gemini0522"
 
-        # 送受信先
-        to_email = "hideya670@gmail.com"
-        from_email = "s19013@std.it-college.ac.jp"
 
-        # MIMEの作成
-        subject = "テストメール"
-        message = """名字:{}  名前:{}\n
-        血液型:{}\n
-        性別:{}\n
-        生年月日:{}年{}月{}日\n
-        メールアドレス:{}\n
-        パスワード:{}\n
-        """.format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get())
-        #パスワードが原因
-        msg = MIMEText(message, "html")
-        msg["Subject"] = subject
-        msg["To"] = to_email
-        msg["From"] = from_email
-        # メール送信処理
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login(account, password)
-        server.send_message(msg)
-        server.quit()
-
-    info_font=font.Font(size=15)
+    info_font=font.Font(size=13)
     sub_win=Toplevel()
     sub_win.geometry("500x500")
     blat_list=["a","b","ab","o"]
@@ -68,7 +53,7 @@ def ok():
     .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get()))
     info.grid(row=0,column=0,columnspan=4)
     okbutton=tk.Button(sub_win,text="ok",command=ok_click)
-    okbutton.grid(row=1,column=0,padx=120)
+    okbutton.grid(row=1,column=0,padx=120,pady=20)
     backbutton=tk.Button(sub_win,text="back",command=lambda: sub_win.destroy())
     backbutton.grid(row=1,column=1,padx=10)
 
@@ -140,8 +125,8 @@ year_cb.grid(row=8,column=0,sticky=tk.N+tk.E+tk.S)
 manth_cb.grid(row=8,column=1)
 day_cb.grid(row=8,column=2)
 #addres
-email.grid(row=9,column=1,columnspan=4,pady=10,sticky=tk.W)
-password.grid(row=10,column=1,sticky=tk.W)
+email.grid(row=9,column=1,columnspan=10,pady=10,sticky=tk.W)
+password.grid(row=10,column=1,columnspan=10,sticky=tk.W)
 #ボタン
 button_ok.place(x=220,y=300)
 win.mainloop()

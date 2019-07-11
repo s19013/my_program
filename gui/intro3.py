@@ -4,15 +4,31 @@ from tkinter import *
 from tkinter import messagebox as mbox
 from tkinter import font
 from time import sleep
-from email.mime.text import MIMEText
-import smtplib
 #ウィンドウ
 win=tk.Tk()
 win.geometry("500x500")
 
 #関数
+def year_cb_selected(event):
+    print(year.get())
+def manth_cb_selected(event):
+    print(manth.get())
+def day_cb_selected(event):
+    print(day.get())
 def ok():
     def ok_click():
+        filename=myouzi.get()
+        file = open('{}.txt'.format(filename), 'w')
+        file.write("""
+        名字:{}  名前:{}\n
+        血液型:{}\n
+        性別:{}\n
+        生年月日:{}年{}月{}日\n
+        メールアドレス:{}\n
+        パスワード:{}\n
+        """
+        .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get()))
+        file.close()
         info.grid_remove()
         okbutton.grid_remove()
         backbutton.grid_remove()
@@ -20,35 +36,6 @@ def ok():
         info2.pack()
         quitbutton=tk.Button(sub_win,text="quit",command=lambda: sub_win.quit())
         quitbutton.pack()
-        # SMTP認証情報
-        account = "s19013@std.it-college.ac.jp"
-        password = "gemini0522"
-
-        # 送受信先
-        to_email = "hideya670@gmail.com"
-        from_email = "s19013@std.it-college.ac.jp"
-
-        # MIMEの作成
-        subject = "テストメール"
-        message = """名字:{}  名前:{}\n
-        血液型:{}\n
-        性別:{}\n
-        生年月日:{}年{}月{}日\n
-        メールアドレス:{}\n
-        パスワード:{}\n
-        """.format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get())
-        #パスワードが原因
-        msg = MIMEText(message, "html")
-        msg["Subject"] = subject
-        msg["To"] = to_email
-        msg["From"] = from_email
-        # メール送信処理
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login(account, password)
-        server.send_message(msg)
-        server.quit()
-
     info_font=font.Font(size=15)
     sub_win=Toplevel()
     sub_win.geometry("500x500")
@@ -100,16 +87,19 @@ Ldrop=tk.Label(win,text="生年月日を選んでください[年/月/日]")
 #year
 year=StringVar()
 year_cb=ttk.Combobox(win,textvariable=year,width=10)
+year_cb.bind("<<ComboboxSelected>>",year_cb_selected)
 year_cb["values"]=(list(range(1900, 2020)))
 year_cb.set("2019")
 #manth
 manth=StringVar()
 manth_cb=ttk.Combobox(win,textvariable=manth,width=10)
+manth_cb.bind("<<ComboboxSelected>>",manth_cb_selected)
 manth_cb["values"]=(list(range(1, 13)))
 manth_cb.set("1")
 #day
 day=StringVar()
 day_cb=ttk.Combobox(win,textvariable=day,width=10)
+day_cb.bind("<<ComboboxSelected>>",day_cb_selected)
 day_cb["values"]=(list(range(1, 32)))
 day_cb.set("1")
 #addres
@@ -120,10 +110,10 @@ password=tk.Entry()
 
 #表示
 #名前
-Lmyouzi.grid(row=0,column=0,columnspan=4,sticky=tk.W)
-Lnamae.grid(row=0,column=2,columnspan=4,sticky=tk.W)
-myouzi.grid(row=1,column=0,columnspan=4,sticky=tk.W)
-namae.grid(row=1,column=2,columnspan=4,sticky=tk.W)
+Lmyouzi.grid(row=0,column=0,sticky=tk.W)
+Lnamae.grid(row=0,column=2,sticky=tk.W)
+myouzi.grid(row=1,column=0,columnspan=3,sticky=tk.W)
+namae.grid(row=1,column=2,columnspan=3)
 #blat
 Lblat.grid(row=2, column=0,sticky=tk.W)
 radio_blat_a.grid(row=3, column=0)
@@ -139,12 +129,11 @@ Ldrop.grid(row=6,column=0,sticky=tk.W,pady=10,columnspan=4)
 year_cb.grid(row=8,column=0,sticky=tk.N+tk.E+tk.S)
 manth_cb.grid(row=8,column=1)
 day_cb.grid(row=8,column=2)
-#addres
-email.grid(row=9,column=1,columnspan=4,pady=10,sticky=tk.W)
-password.grid(row=10,column=1,sticky=tk.W)
 #ボタン
 button_ok.place(x=220,y=300)
 win.mainloop()
-
+#addres
+email.grid(row=9,column=1,columnspan=4,pady=10,sticky=tk.W)
+password.grid(row=10,column=1,sticky=tk.W)
 
 #サブスクリーン
