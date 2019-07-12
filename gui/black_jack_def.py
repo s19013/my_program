@@ -27,8 +27,8 @@ def game():
     for i in range(2):
         yourcard.append(random.randint(1,13))
         comcard.append(random.randint(1,13))
-    lcomcard=tk.Label(comside,text="{}".format(comcard)).pack(side="left",padx=(100,10))
-    lcomcard_sum=tk.Label(comside,text="相手の合計{}".format(sum(comcard))).pack(side="left",padx=10)
+    lcomcard=tk.Label(comside,text=comcard)
+    lcomcard.pack(side="left")
 #実行
 game()
 win.mainloop()
