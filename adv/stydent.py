@@ -41,10 +41,11 @@ class Home:
     def __init__(self):
         self.name = "マイホーム"
 
-class library:
+class library(Do_base):
     study = True
 
     def __init__(self):
         self.name="図書館"
+        next.append([studying()],)
 
     def teach(self):
