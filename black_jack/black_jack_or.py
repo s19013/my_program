@@ -109,3 +109,4 @@ if sum(mycard)<sum(enemycard):
 
 if sum(mycard)==sum(enemycard):
     print("draw")
+#
