@@ -21,6 +21,8 @@ class Person:
 
     #def taklking(self):
     #    print()
+
+
 # ここから建物
 class Home:
     has_bed = True
@@ -34,4 +36,4 @@ class library:
     def __init__(self):
         self.name="図書館"
 
-    def 
+    def teach(self):
