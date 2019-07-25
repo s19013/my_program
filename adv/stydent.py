@@ -22,6 +22,17 @@ class Person:
     #def taklking(self):
     #    print()
 
+class Do_base:
+    def __init__(self,player):
+        self.player=player
+        next=[None,about_me(),Look_around()]
+        while True:
+            key_do=input("".format(next))
+            try:
+                next[int(key_do)]
+                break
+            except:
+                print("有効な入力ではありません！")
 
 # ここから建物
 class Home:
