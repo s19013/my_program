@@ -82,5 +82,5 @@ def main(player):
 
 
 if __name__ == '__main__':
-    ore = Person(Home())
-    main(ore)
+    me = Person(Home())
+    main(me)
