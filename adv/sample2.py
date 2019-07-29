@@ -19,17 +19,25 @@ class Person:
         if self.building.has_bed:
             print("もう夜だ\nおやすみ")
 
-class Do:
-    def __init__(self,player):
+class Do_first:
+    def next(self,player):
         self.player=player
-        option = [None , KyoyoTo(), HokuShoku(), Chuo()]
+        next=[None,about_me(),Look_around()]
         while True:
-            key = input("どこに移動しますか？　1.{0[1].name} 2.{0[2].name} 3.{0[3].name}：".format(option))
+            key_do=input("".format(next))
             try:
-                player.move(option[int(key)])
+                next[int(key_do)]
                 break
             except:
                 print("有効な入力ではありません！")
+
+    def about_me(self):
+        money=6000
+        print("{}円".format(money))
+
+    def Look_around():
+        print(".....")
+        print("知り合いはいないようだ")
 
 # ここから建物
 class Home:
@@ -38,13 +46,14 @@ class Home:
     def __init__(self):
         self.name = "マイホーム"
 
-class KyoyoTo:
+class KyoyoTo(Do_first):
     has_teacher = True
-
     def __init__(self):
-        self.name = "教養棟"
+        Do_first().next()
+
 
     def teach(self):
+        self.name = "教養棟"
         return input("受けたい授業名を入力してください：")
 
 class Restaurant:
@@ -58,9 +67,7 @@ class Restaurant:
 class HokuShoku(Restaurant):
     def __init__(self):
         self.name = "北部食堂"
-        menu={1:"1",2:"2",3:"3"}
-        ate=input("何を食べますか？\n{}".format(menu))
-        self.menu = ate
+        self.menu = "ビュッフェ"
 
 class Chuo(Restaurant):
     def __init__(self):
@@ -71,7 +78,7 @@ class Chuo(Restaurant):
 def main(player):
     count = 0
     while count < 3:
-        Do(player)
+        player_move(player)
         if player.building.name == "教養棟":
             player.study()
         else:
@@ -80,9 +87,16 @@ def main(player):
     player.move(Home())
     player.sleep()
 
-#def player_move(player):
-
+def player_move(player):
+    option = [None , KyoyoTo(), HokuShoku(), Chuo()]
+    while True:
+        key = input("どこに移動しますか？　1.{0[1].name} 2.{0[2].name} 3.{0[3].name}：".format(option))
+        try:
+            player.move(option[int(key)])
+            break
+        except:
+            print("有効な入力ではありません！")
 
 if __name__ == '__main__':
-    me = Person(Home())
-    main(me)
+    ore = Person(Home())
+    main(ore)
