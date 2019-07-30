@@ -27,4 +27,4 @@ main()
 
 
 #print(CalcFee().calc())だとinitのせいでvalueがリセットされてしまうかもしれない
-#
+#今の私のレベルではclassには動きをつけないほうがういい
