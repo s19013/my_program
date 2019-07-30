@@ -15,10 +15,11 @@ class CalcFee:
   def calc(self,ques):
     """最終的　金額"""
     self.ques=ques
+    total=self.value + self.shipping_fee
     if ques=="n":
-        total=self.value + self.shipping_fee
+        pass
     else:
-        total=self.value + self.shipping_fee + self.sppedy
+        total+=self.sppedy
     tax=math.ceil(total*self.tax_rate)
     v=math.ceil(total+tax)
     return v
@@ -48,9 +49,5 @@ def main():
             break
         else:
             print("やり直し")
-
-
-
-
 
 main()
