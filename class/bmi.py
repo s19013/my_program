@@ -37,8 +37,6 @@ def input_person():
         box_weight.append(weight)
         box_height.append(height)
 
-
-
     main()
 
 def main():
