@@ -1,4 +1,4 @@
-#bmi 計算
+#bmi計算
 class BMI:
     def __init__(self,weight,height):
         """初期化"""
