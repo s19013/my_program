@@ -6,14 +6,19 @@ class CalcFee:
     self.shipping_fee=1000 #送料
     self.tax_rate= 0.08#税率
     self.value = 0#合計
+    self.sppedy =500 #速達
 
   def additem(self,price):
     """商品の値段を加算"""
     self.value+=price
 
-  def calc(self):
+  def calc(self,ques):
     """最終的　金額"""
-    total=self.value + self.shipping_fee
+    self.ques=ques
+    if ques=="n":
+        total=self.value + self.shipping_fee
+    else:
+        total=self.value + self.shipping_fee + self.sppedy
     tax=math.ceil(total*self.tax_rate)
     v=math.ceil(total+tax)
     return v
@@ -33,7 +38,19 @@ def main():
             break
         else:
             print("やり直し")
+    while True:
+        ques_sppedy=input("速達をご希望ですか？\n y/n:")
+        if ques_sppedy=="y":
+            print(shop.calc("y"))
+            break
+        elif ques_sppedy=="n":
+            print(shop.calc("n"))
+            break
+        else:
+            print("やり直し")
 
-    print(shop.calc())
+
+
+
 
 main()
