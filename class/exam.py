@@ -34,3 +34,7 @@ class CalcScore:
         v=0
         for i in self.students:
             v+=i.getscore
+        ave_v= v/len(self.students)
+        return ave_v
+
+p1=inf_Student
