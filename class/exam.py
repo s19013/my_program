@@ -33,8 +33,18 @@ class CalcScore:
     def ave(self):
         v=0
         for i in self.students:
-            v+=i.getscore
+            v+=i.getscore()
         ave_v= v/len(self.students)
         return ave_v
 
-p1=inf_Student
+p1=inf_Student(10, "satou",score=80)
+p2=inf_Student(11, "sasori",score=79)
+p3=inf_Student(12, "ouki",score=84)
+p4=inf_Student(13, "touwa",score=77)
+
+calc=CalcScore()
+calc.addstudent(p1)
+calc.addstudent(p2)
+calc.addstudent(p3)
+calc.addstudent(p4)
+print("ave=",calc.ave())
