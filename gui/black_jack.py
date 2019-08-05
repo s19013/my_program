@@ -1,12 +1,12 @@
-import tkinter as tk
 import tkinter
+import tkinter as tk
 import random
 import sys
 from tkinter import ttk
 from tkinter import *
 from tkinter import font
 import tkinter.ttk as ttk
-
+import time
 win=tk.Tk()
 win.geometry("600x600")
 #フォント
@@ -27,12 +27,37 @@ yourside.pack(fill="x")
 def game():
     #関数in関数
     #ここはオブジェクト指向だと少し楽かも同じ作業だし
+
+    def comturn():
+        while sum(comcard)<=15:
+            append.comcard(random.randint(1,13))
+            textmycard.set("{}".format(comcard))
+            textcomcard_sum.set("{}".format(sum(comcard)))
+            if sum(comcard)>21:
+                barst_com()
+
+    def barst_com():
+        info.set("相手がバーストしました")
+        bhit.pack_forget()
+        bstand.pack_forget()
+        return True
+
+
+
     def update_mycard():
         yourcard.append(random.randint(1,13))
         textmycard.set("{}".format(yourcard))
         textmycard_sum.set("あなたの合計:{}".format(sum(yourcard)))
-        return sum(yourcard)
+        if sum(yourcard)>21:
+            info.set("バーストしました (ﾉд-｡)ｸｽﾝ\nゲームオーバー")
+            bhit.pack_forget()
+            bstand.pack_forget()
+            return False
 
+    def end():
+        if barst_com==False or update_mycard==False:
+            time.sleep(1)
+            sys.exit
     yourcard=[]
     comcard=[]
     for i in range(2):
@@ -50,8 +75,10 @@ def game():
     info=tk.StringVar()
     info.set("hit or stand")
     linfo=tk.Label(etcside,textvariable=info,font=framefont).pack()
-    bhit=tk.Button(etcside,text="hit",command=update_mycard).pack(side="left",padx=(225,50))
-    bstand=tk.Button(etcside,text="stand").pack(side="left")
+    bhit=tk.Button(etcside,text="hit",command=update_mycard)
+    bhit.pack(side="left",padx=(225,50))
+    bstand=tk.Button(etcside,text="stand",command=lambda :comturn())
+    bstand.pack(side="left")
     #自分
     textmycard=tk.StringVar()
     textmycard.set("{}".format(yourcard))
@@ -62,8 +89,6 @@ def game():
     lmycord_sum=tk.Label(yourside,font=strfont,textvariable=textmycard_sum).pack(side="right")
 
 #---------------------------------------
-    if update_mycard()>21:
-        info.set("バーストしました (ﾉд-｡)ｸｽﾝ\nゲームオーバー")
 
 #実行
 game()

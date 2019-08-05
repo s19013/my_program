@@ -25,6 +25,7 @@ class Application(tk.Frame):
 
         self.yourside=tk.LabelFrame(win,bd=3,relief="groove",text="あなた",font=framefont)
         self.yourside.pack(fill="x")
+        
 
 class Card_base:
     def __init__(self,parson):
