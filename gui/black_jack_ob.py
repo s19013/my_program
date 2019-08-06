@@ -7,25 +7,26 @@ from tkinter import font
 import tkinter as tk
 import tkinter.ttk as ttk
 
-root = tk.Tk().title("Visualizer for function")
+
 strfont=font.Font(size=25)
 framefont=font.Font(size=16)
 
 
 class Application(tk.Frame):
-    def __init__(self, master = None):
-        tk.Frame.__init__(self, master)
-        self.pack(expand = 1, fill = tk.BOTH, anchor = tk.NW)
+    def __init__(self,master):
+        super().__init__(master)
+        self.pack()
+        master.geometry("500x500")
         #フレーム
-        self.comside=tk.LabelFrame(win,bd=3,relief="groove",text="相手",font=framefont)
+        self.comside=tk.LabelFrame(self,bd=3,relief="groove",text="相手",font=framefont)
         self.comside.pack(fill="x")
 
-        self.etcside=tk.Frame(win)
+        self.etcside=tk.Frame(self)
         self.etcside.pack(fill="x")
 
-        self.yourside=tk.LabelFrame(win,bd=3,relief="groove",text="あなた",font=framefont)
+        self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=framefont)
         self.yourside.pack(fill="x")
-        
+
 
 class Card_base:
     def __init__(self,parson):
@@ -42,3 +43,7 @@ class Card_base:
         self.textparson_sum.set("あなたの合計:{}".format(sum(self.parsoncard)))
         lmycord=tk.Label(yourside,font=strfont,textvariable=textmycard).pack(side"left")
         lmycord_sum=tk.Label(yourside,font=strfont,textvariable=textmycard_sum).pck(side="right")
+
+root = tk.Tk()
+app = Application(master = root)
+app.mainloop()

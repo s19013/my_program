@@ -21,6 +21,9 @@ etcside.pack(fill="x")
 
 yourside=tk.LabelFrame(win,bd=3,relief="groove",text="あなた",font=framefont)
 yourside.pack(fill="x")
+
+yourcard=[]
+comcard=[]
 #部品
 #-----------------------------
 #関数
@@ -58,9 +61,8 @@ def game():
         if barst_com==False or update_mycard==False:
             time.sleep(1)
             sys.exit
-            
-    yourcard=[]
-    comcard=[]
+
+
     for i in range(2):
         yourcard.append(random.randint(1,13))
         comcard.append(random.randint(1,13))
