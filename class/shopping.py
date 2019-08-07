@@ -42,12 +42,13 @@ def main():
     while True:
         ques_sppedy=input("速達をご希望ですか？\n y/n:")
         if ques_sppedy=="y":
-            print(shop.calc("y"))
+            print("合計{}円です".format(shop.calc("y")))
             break
         elif ques_sppedy=="n":
-            print(shop.calc("n"))
+            print("合計{}円です".format(shop.calc("n")))
             break
         else:
             print("やり直し")
+    print("注文を承りました\nご利用ありがとう御座いました")
 
 main()
