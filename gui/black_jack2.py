@@ -27,25 +27,21 @@ comcard=[]
 #部品
 #-----------------------------
 #関数
+def end():
+    time.sleep(1)
+    sys.exit
+
 def game():
     #関数in関数
     #ここはオブジェクト指向だと少し楽かも同じ作業だし
-
     def comturn():
         while sum(comcard)<=15:
             append.comcard(random.randint(1,13))
             textmycard.set("{}".format(comcard))
             textcomcard_sum.set("{}".format(sum(comcard)))
             if sum(comcard)>21:
+                info.set("相手がバーストしました")
                 barst_com()
-
-    def barst_com():
-        info.set("相手がバーストしました")
-        bhit.pack_forget()
-        bstand.pack_forget()
-        return True
-
-
 
     def update_mycard():
         yourcard.append(random.randint(1,13))
@@ -55,12 +51,8 @@ def game():
             info.set("バーストしました (ﾉд-｡)ｸｽﾝ\nゲームオーバー")
             bhit.pack_forget()
             bstand.pack_forget()
-            return False
+            end()
 
-    def end():
-        if barst_com==False or update_mycard==False:
-            time.sleep(1)
-            sys.exit
 
 
     for i in range(2):

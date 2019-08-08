@@ -27,7 +27,8 @@ class Application(tk.Frame):
         self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=framefont)
         self.yourside.pack(fill="x")
 
-        
+        self.strfont=font.Font(size=25)
+        self.framefont=font.Font(size=16)
 
 
 class Card_base:
@@ -43,8 +44,8 @@ class Card_base:
         self.parsoncard.set("{}".format(self.parsoncard))
         self.textparson_sum=tk.StringVar()
         self.textparson_sum.set("あなたの合計:{}".format(sum(self.parsoncard)))
-        lmycord=tk.Label(self.yourside,font=strfont,textvariable=self.textmycard).pack(side="left")
-        lmycord_sum=tk.Label(self.yourside,font=strfont,textvariable=self.textmycard_sum).pck(side="right")
+        lmycord=tk.Label(self.yourside,font=self.strfont,textvariable=self.textmycard).pack(side="left")
+        lmycord_sum=tk.Label(self.yourside,font=self.strfont,textvariable=self.textmycard_sum).pck(side="right")
 
 root = tk.Tk()
 app = Application(master = root)
