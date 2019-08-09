@@ -5,8 +5,13 @@ r = requests.get("https://www26.atwiki.jp/gcmatome/pages/24.html")
 
 soup = BeautifulSoup(r.content, "html.parser")
 l=soup.find_all("a")
-with open(r,"w")
+box=[]
+for a in l:
+    if a is not None:
+        box.append(a)
 
+for b in box:
+    print(b.getText())
 #result = [line for line in lines_strip if 'title' in line]
 #for a in result:
     #print(a)
