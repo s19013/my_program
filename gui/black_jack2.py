@@ -1,4 +1,4 @@
-import tkinter
+4import tkinter
 import tkinter as tk
 import random
 import sys
