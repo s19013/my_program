@@ -7,6 +7,7 @@ from tkinter import *
 from tkinter import font
 import tkinter.ttk as ttk
 import time
+
 win=tk.Tk()
 win.geometry("600x600")
 #フォント
@@ -58,7 +59,7 @@ def game():
         if barst_com==False or update_mycard==False:
             time.sleep(1)
             sys.exit
-            
+
     yourcard=[]
     comcard=[]
     for i in range(2):

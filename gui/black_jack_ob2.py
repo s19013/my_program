@@ -8,8 +8,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-strfont=font.Font(size=25)
-framefont=font.Font(size=16)
+
 
 
 class Application(tk.Frame):
@@ -17,18 +16,19 @@ class Application(tk.Frame):
         super().__init__(master)
         self.pack()
         master.geometry("500x500")
+        #フォント
+        self.strfont=font.Font(size=25)
+        self.framefont=font.Font(size=16)
         #フレーム
-        self.comside=tk.LabelFrame(self,bd=3,relief="groove",text="相手",font=framefont)
+        self.comside=tk.LabelFrame(self,bd=3,relief="groove",text="相手",font=self.framefont)
         self.comside.pack(fill="x")
 
         self.etcside=tk.Frame(self)
         self.etcside.pack(fill="x")
 
-        self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=framefont)
+        self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=self.framefont)
         self.yourside.pack(fill="x")
-
-        self.strfont=font.Font(size=25)
-        self.framefont=font.Font(size=16)
+        #Card_base("you")
 
 
 class Card_base:
@@ -37,8 +37,9 @@ class Card_base:
         self.parsoncard=[]
         for i in range(2):
             self.parsoncard.append(random.randint(1,13))
+        self.hyouji("you")
 
-    def hyouzi(self,parson):
+    def hyouji(self,parson):
         self.parson=parson
         self.parsoncard=tk.StringVar()
         self.parsoncard.set("{}".format(self.parsoncard))
@@ -46,7 +47,9 @@ class Card_base:
         self.textparson_sum.set("あなたの合計:{}".format(sum(self.parsoncard)))
         lmycord=tk.Label(self.yourside,font=self.strfont,textvariable=self.textmycard).pack(side="left")
         lmycord_sum=tk.Label(self.yourside,font=self.strfont,textvariable=self.textmycard_sum).pck(side="right")
+def main():
+    root = tk.Tk()
+    app = Application(master = root)
+    app.mainloop()
 
-root = tk.Tk()
-app = Application(master = root)
-app.mainloop()
+main()

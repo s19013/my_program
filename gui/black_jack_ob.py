@@ -8,8 +8,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-strfont=font.Font(size=25)
-framefont=font.Font(size=16)
 
 
 class Application(tk.Frame):
@@ -26,8 +24,9 @@ class Application(tk.Frame):
 
         self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=framefont)
         self.yourside.pack(fill="x")
+        Card_base(you)
 
-        
+
 
 
 class Card_base:
@@ -36,8 +35,9 @@ class Card_base:
         self.parsoncard=[]
         for i in range(2):
             self.parsoncard.append(random.randint(1,13))
+        hyouji(you)
 
-    def hyouzi(self,parson):
+    def hyouji(self,parson):
         self.parson=parson
         self.parsoncard=tk.StringVar()
         self.parsoncard.set("{}".format(self.parsoncard))
