@@ -16,18 +16,6 @@ class Application(tk.Frame):
         super().__init__(master)
         self.pack()
         master.geometry("500x500")
-        #フォント
-        self.strfont=font.Font(size=25)
-        self.framefont=font.Font(size=16)
-        #フレーム
-        self.comside=tk.LabelFrame(self,bd=3,relief="groove",text="相手",font=("framefont"))
-        self.comside.pack(fill="x")
-
-        self.etcside=tk.Frame(self)
-        self.etcside.pack(fill="x")
-
-        self.yourside=tk.LabelFrame(self,bd=3,relief="groove",text="あなた",font=("framefont"))
-        self.yourside.pack(fill="x")
         Card_base("you","yourcard")
 
 
@@ -41,10 +29,18 @@ class Card_base:
         self.hyouji("Lyou","Lyourcard")
 
     def hyouji(self,Lparson,Lparsoncard):
+        #フォント
+        self.strfont=font.Font(size=25)
+        self.framefont=font.Font(size=16)
+        #フレーム
+        self.side=tk.LabelFrame(self,bd=3,relief="groove",text=parson,font=("self.framefont"))
+        self.side.pack(fill="x")
+        #表示
         self.Lparson=Lparson
         self.Lparsoncard=Lparsoncard
-        Lparson=tk.Label(self.yourside,font=("strfont"),textvariable=self.textmycard).pack(side="left")
-        Lparsoncard=tk.Label(self.yourside,font=("strfont"),textvariable=self.textmycard_sum).pack(side="right")
+        Lparson=tk.Label(self.side,font=("strfont"),textvariable=self.textmycard).pack(side="left")
+        Lparsoncard=tk.Label(self.side,font=("strfont"),textvariable=self.textmycard_sum).pack(side="right")
+
 def main():
     root = tk.Tk()
     app = Application(master = root)

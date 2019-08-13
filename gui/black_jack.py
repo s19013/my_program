@@ -53,12 +53,9 @@ def game():
             info.set("バーストしました (ﾉд-｡)ｸｽﾝ\nゲームオーバー")
             bhit.pack_forget()
             bstand.pack_forget()
-            return False
+            bstand=tk.Button(etcside,text="stand",command=lambda :comturn())
 
-    def end():
-        if barst_com==False or update_mycard==False:
-            time.sleep(1)
-            sys.exit
+
 
     yourcard=[]
     comcard=[]
