@@ -9,7 +9,7 @@ import smtplib
 #ウィンドウ
 win=tk.Tk()
 win.geometry("500x500")
-
+#try and exceptは今回は省略
 #関数
 def ok():
     def ok_click():

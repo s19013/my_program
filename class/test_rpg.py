@@ -1,3 +1,8 @@
 import rpg3
-print(rpg3.man().remaing_mp(10))
-print(rpg3.man().getmp())
+class aaa:
+    b=100
+    def bbb(self,a):
+        self.a=a
+        print(b-=self.a)
+
+aaa().bbb(10)
