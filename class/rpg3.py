@@ -15,7 +15,6 @@ class human:
 
     def receive_damage(self,damage):
         self.hp-=damage
-        return self.hp
 
         #後々調整
     def base_attack(self,trick):
@@ -61,10 +60,7 @@ class info:
 HP:{}
 MP:{}""".format(self.name,self.hp,self.mp))
 class man(human):
-    def __init__(self):
-        self.name="man"
-        self.hp=100
-        self.mp=150
-
-woman=human("woman",90,110)
+    pass
+man2=man("man",100,100)
+#woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
