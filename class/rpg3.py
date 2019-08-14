@@ -1,10 +1,11 @@
 import random
 class human:
     """大体共通するクラス"""
-    def __init__(self,name,hp,mp,health):
+    def __init__(self,name,hp,mp,n_attack,health):
         self.name=name
         self.hp=hp
         self.mp=mp
+        self.n_attack=n_attack
         self.health=health
 #ステータスを取る
     def getname(self):
@@ -29,6 +30,19 @@ class human:
     def base_attack(self,trick):
         self.trick=trick
         return self.trick
+
+    def do(self):
+        dolist=[None,base_attack(30),item(),special()]
+        while True:
+            self.do=input("1:攻撃　2:アイテム　3:特技\n")
+            if self.do!=int:
+                print(入力し直し)
+            elif:self.do>3:
+                print(入力し直し)
+            else:
+                break
+        if 
+
     # def cri(self,base,up_cri):
     #     self.base=base
     #     self.up_cri=up_cri
@@ -44,11 +58,6 @@ class human:
     #         cri=1.5
     #     return self.base*cri
 
-
-
-
-
-
 class info:
     def show_info(self,name,hp,mp):
         self.name=name
@@ -61,6 +70,6 @@ class man(human):
     def special(self):
         speciallist=[1:""]
 
-man2=man("man",100,100,good)
+man2=man("man",100,100,30,good)
 #woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
