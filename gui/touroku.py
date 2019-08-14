@@ -14,17 +14,8 @@ win.geometry("500x500")
 def ok():
     def ok_click():
         filename=myouzi.get()
-        file = open('{}.txt'.format(filename), 'w')
-        file.write("""
-        名字:{}  名前:{}\n
-        血液型:{}\n
-        性別:{}\n
-        生年月日:{}年{}月{}日\n
-        メールアドレス:{}\n
-        パスワード:{}\n
-        """
-        .format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get()))
-        file.close()
+        with open('{}.txt'.format(filename), 'w',encoding="utf-8") as file:
+            file.write("名字:{}  名前:{}\n血液型:{}\n性別:{}\n生年月日:{}年{}月{}日\nメールアドレス:{}\nパスワード:{}\n".format(myouzi.get(),namae.get(),blat,sex,year.get(),manth.get(),day.get(),email.get(),password.get()))
         info.grid_remove()
         okbutton.grid_remove()
         backbutton.grid_remove()

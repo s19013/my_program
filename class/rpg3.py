@@ -14,8 +14,7 @@ class human:
         return self.mp
 
     def receive_damage(self,damage):
-        self.damage=damage
-        self.hp-=self.damage
+        self.hp-=damage
         return self.hp
 
         #後々調整
