@@ -9,7 +9,12 @@ class human:
         self.mp=mp
         self.n_attack=n_attack
         self.power_up=1
-        self.cri_up=0
+        self.power_up_turn=0
+        self.cri_up_turn=0
+        self.poison=0
+        self.mahi=0
+        self.blood=0
+
 #ステータスを取る
     def getname(self):
         return self.name
@@ -40,16 +45,16 @@ class human:
         #後々調整
 #攻撃
     def base_attack(self,trick):
-        self.critical(self.cri_up)
-        if self.cri_up>0:
+        self.critical(self.cri_up_turn)
+        if self.cri_up_turn>0:
             self.cri=random.randint(1,10)
             if self.cri>3:
                 print("クリティカル！")
                 self.cri_rate=1.4
             else:
                 self.cri_rate=1
-            self.cri_up-=1
-            # DEBUG: print(self.cri_up)
+            self.cri_up_turn-=1
+            # DEBUG: print(self.cri_up_turn)
         else:
             self.cri=random.randint(1,10)
             if self.cri>8:
@@ -60,25 +65,25 @@ class human:
         #return trick*self.cri_rate
         print("attack {}".format(math.floor(trick*self.cri_rate)))
 
-    def critical(self,cri_up):
-        self.cri_up=cri_up
+    def critical(self,cri_up_turn):
+        self.cri_up_turn=cri_up_turn
         # try:
         #     pass
         # except :
-        #     cri_up=0
-        # if self.cri_up==None or self.cri_up==0:
-        #     self.cri_up=0
+        #     cri_up_turn=0
+        # if self.cri_up_turn==None or self.cri_up_turn==0:
+        #     self.cri_up_turn=0
         # else:
         #     pass
-        # if self.cri_up>0:
+        # if self.cri_up_turn>0:
         #     self.cri=random.randint(1,10)
         #     if self.cri>4:
         #         print("cri!") #DEBUG:
         #         self.cri_rate=1.4
         #     else:
         #         self.cri_rate=1
-        #     self.cri_up-=1
-        #     # DEBUG: print(self.cri_up)
+        #     self.cri_up_turn-=1
+        #     # DEBUG: print(self.cri_up_turn)
         # else:
         #     self.cri=random.randint(1,10)
         #     if self.cri>8:
