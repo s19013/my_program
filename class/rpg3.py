@@ -31,17 +31,17 @@ class human:
         self.critical(self.cri_up)
         if self.cri_up>0:
             self.cri=random.randint(1,10)
-            if self.cri>4:
-                print("cri!!!!!") #DEBUG:
+            if self.cri>3:
+                print("クリティカル！")
                 self.cri_rate=1.4
             else:
                 self.cri_rate=1
             self.cri_up-=1
-            print(self.cri_up)
+            # DEBUG: print(self.cri_up)
         else:
             self.cri=random.randint(1,10)
-            if self.cri>7:
-                print("cri")# DEBUG:
+            if self.cri>8:
+                print("クリティカル")# DEBUG:
                 self.cri_rate=1.4
             else:
                 self.cri_rate=1
@@ -69,7 +69,7 @@ class human:
         #     # DEBUG: print(self.cri_up)
         # else:
         #     self.cri=random.randint(1,10)
-        #     if self.cri>7:
+        #     if self.cri>8:
         #         print("cri")# DEBUG:
         #         self.cri_rate=1.4
         #     else:
