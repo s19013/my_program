@@ -8,6 +8,7 @@ class human:
         self.mp=mp
         self.n_attack=n_attack
         self.power_up=power_up
+        self.cri_up=0
 #ステータスを取る
     def getname(self):
         return self.name
@@ -34,9 +35,10 @@ class human:
         self.hp+=care_hp
     def charge_mp(self,care_mp):
         self.mp+=care_mp
-#行動
+##行動
         #後々調整
-    def base_attack(self,trick,cri=0):
+#攻撃
+    def base_attack(self,trick):
         self.critical(self.cri_up)
         if self.cri_up>0:
             self.cri=random.randint(1,10)
@@ -58,11 +60,11 @@ class human:
         print("attack {}".format(trick*self.cri_rate))
 
     def critical(self,cri_up):
+        # try:
+        #     pass
+        # except :
+        #     cri_up=0
         self.cri_up=cri_up
-        try:
-            pass
-        except :
-            cri_up=0
         # if self.cri_up==None or self.cri_up==0:
         #     self.cri_up=0
         # else:
@@ -86,35 +88,27 @@ class human:
 
 
 
-    def do(self):
-        dolist=[None,self.base_attack(30),self.item(),self.special()]
+    def next_do(self):
+        dolist=[None,self.base_attack(self.n_attack),self.item(),self.special(),self.show()]
         while True:
             try:
-                self.do=int(input("1:攻撃　2:アイテム　3:特技\n"))
-                if self.do>3:
+                do=int(input("1:攻撃　2:アイテム　3:特技　4:ステータス\n"))
+                if do>4 and do<=0:
                     print("入力し直し")
+                elif do>0 and do<5:
+                    break
                 else:
-                    break;
+                    print("入力し直し")
             except:
                 print("入力し直し")
-        dolist[self.do]
+        dolist[do]
+        #↓だと表示される
+        #if do==1:
+            #self.base_attack(self.n_attack)
 
     def item(self):
         pass
-    # def cri(self,base,up_cri):
-    #     self.base=base
-    #     self.up_cri=up_cri
-    #     if up_cri!=1:
-    #         cri=0
-    #         num=random.randint(1,10)
-    #         if num>=8:
-    #             print("クリティカル！")
-    #             cri=1.5
-    #         else:
-    #             cri=1
-    #     else:
-    #         cri=1.5
-    #     return self.base*cri
+
 
 class info:
     def show_info(self,name,hp,mp):
