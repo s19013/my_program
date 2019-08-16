@@ -1,12 +1,12 @@
 import random
 class human:
     """大体共通するクラス"""
-    def __init__(self,name,hp,mp,n_attack,health):
+    def __init__(self,name,hp,mp,n_attack,power_up):
         self.name=name
         self.hp=hp
         self.mp=mp
         self.n_attack=n_attack
-        self.health=health
+        self.power_up=power_up
 #ステータスを取る
     def getname(self):
         return self.name
@@ -25,15 +25,57 @@ class human:
         self.hp+=care_hp
     def charge_mp(self,care_mp):
         self.mp+=care_mp
-
+#行動
         #後々調整
-    def base_attack(self,trick):
-        cri=random.randint(1,10)
-        if cri>=8:
-            cri_rate=1.5
+    def base_attack(self,trick,cri=0):
+        self.critical(self.cri_up)
+        if self.cri_up>0:
+            self.cri=random.randint(1,10)
+            if self.cri>4:
+                print("cri!!!!!") #DEBUG:
+                self.cri_rate=1.4
+            else:
+                self.cri_rate=1
+            self.cri_up-=1
+            print(self.cri_up)
         else:
-            cri_rate=1
-        return trick*cri_rate
+            self.cri=random.randint(1,10)
+            if self.cri>7:
+                print("cri")# DEBUG:
+                self.cri_rate=1.4
+            else:
+                self.cri_rate=1
+        #return trick*self.cri_rate
+        print("attack {}".format(trick*self.cri_rate))
+
+    def critical(self,cri_up):
+        self.cri_up=cri_up
+        try:
+            pass
+        except :
+            cri_up=0
+        # if self.cri_up==None or self.cri_up==0:
+        #     self.cri_up=0
+        # else:
+        #     pass
+        # if self.cri_up>0:
+        #     self.cri=random.randint(1,10)
+        #     if self.cri>4:
+        #         print("cri!") #DEBUG:
+        #         self.cri_rate=1.4
+        #     else:
+        #         self.cri_rate=1
+        #     self.cri_up-=1
+        #     # DEBUG: print(self.cri_up)
+        # else:
+        #     self.cri=random.randint(1,10)
+        #     if self.cri>7:
+        #         print("cri")# DEBUG:
+        #         self.cri_rate=1.4
+        #     else:
+        #         self.cri_rate=1
+
+
 
     def do(self):
         dolist=[None,self.base_attack(30),self.item(),self.special()]
@@ -46,9 +88,6 @@ class human:
                     break;
             except:
                 print("入力し直し")
-
-
-
         dolist[self.do]
 
     def item(self):
@@ -81,6 +120,6 @@ class man(human):
         pass
         #speciallist={1:"a"}
 
-man2=man("man",100,100,30,"good")
+man2=man("man",100,100,30,1)
 #woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
