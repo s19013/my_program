@@ -1,8 +1,9 @@
 import random
 class human:
     """大体共通するクラス"""
-    def __init__(self,name,hp,mp,n_attack,power_up):
+    def __init__(self,name,job,hp,mp,n_attack,power_up):
         self.name=name
+        self.job=job
         self.hp=hp
         self.mp=mp
         self.n_attack=n_attack
@@ -14,6 +15,14 @@ class human:
         return self.hp
     def getmp(self):
         return self.mp
+    def getjob(self):
+        return self.job
+#情報を見せる
+    def show(self):
+        print("名前:{} ".format(self.getname()))
+        print("職業:{} ".format(self.getjob()))
+        print("hp:{} ".format(self.gethp()))
+        print("mp:{} ".format(self.getmp()))
 ##hp mpの変動
 #減る
     def remaing_hp(self,damage):
@@ -120,6 +129,6 @@ class man(human):
         pass
         #speciallist={1:"a"}
 
-man2=man("man",100,100,30,1)
+man2=man("man","デバック",100,100,30,1)
 #woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
