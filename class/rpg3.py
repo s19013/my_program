@@ -28,21 +28,31 @@ class human:
 
         #後々調整
     def base_attack(self,trick):
-        self.trick=trick
-        return self.trick
+        cri=random.randint(1,10)
+        if cri>=8:
+            cri_rate=1.5
+        else:
+            cri_rate=1
+        return trick*cri_rate
 
     def do(self):
-        dolist=[None,base_attack(30),item(),special()]
+        dolist=[None,self.base_attack(30),self.item(),self.special()]
         while True:
-            self.do=input("1:攻撃　2:アイテム　3:特技\n")
-            if self.do!=int:
-                print(入力し直し)
-            elif:self.do>3:
-                print(入力し直し)
-            else:
-                break
-        if 
+            try:
+                self.do=int(input("1:攻撃　2:アイテム　3:特技\n"))
+                if self.do>3:
+                    print("入力し直し")
+                else:
+                    break;
+            except:
+                print("入力し直し")
 
+
+
+        dolist[self.do]
+
+    def item(self):
+        pass
     # def cri(self,base,up_cri):
     #     self.base=base
     #     self.up_cri=up_cri
@@ -68,8 +78,9 @@ HP:{}
 MP:{}""".format(self.name,self.hp,self.mp))
 class man(human):
     def special(self):
-        speciallist=[1:""]
+        pass
+        #speciallist={1:"a"}
 
-man2=man("man",100,100,30,good)
+man2=man("man",100,100,30,"good")
 #woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
