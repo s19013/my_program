@@ -1,13 +1,14 @@
 import random
+import math
 class human:
     """大体共通するクラス"""
-    def __init__(self,name,job,hp,mp,n_attack,power_up):
+    def __init__(self,name,job,hp,mp,n_attack):
         self.name=name
         self.job=job
         self.hp=hp
         self.mp=mp
         self.n_attack=n_attack
-        self.power_up=power_up
+        self.power_up=1
         self.cri_up=0
 #ステータスを取る
     def getname(self):
@@ -57,14 +58,14 @@ class human:
             else:
                 self.cri_rate=1
         #return trick*self.cri_rate
-        print("attack {}".format(trick*self.cri_rate))
+        print("attack {}".format(math.floor(trick*self.cri_rate)))
 
     def critical(self,cri_up):
+        self.cri_up=cri_up
         # try:
         #     pass
         # except :
         #     cri_up=0
-        self.cri_up=cri_up
         # if self.cri_up==None or self.cri_up==0:
         #     self.cri_up=0
         # else:
@@ -123,6 +124,6 @@ class man(human):
         pass
         #speciallist={1:"a"}
 
-man2=man("man","デバック",100,100,30,1)
+man2=man("man","デバック",100,100,30)
 #woman=human("woman",90,110)
 #info().show_info(man.getname(),man.gethp(),man.getmp())
