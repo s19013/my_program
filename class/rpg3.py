@@ -95,7 +95,6 @@ class human:
 
 
     def next_do(self):
-        dolist=[None,self.base_attack(self.n_attack),self.item(),self.special(),self.show()]
         while True:
             try:
                 do=int(input("1:攻撃　2:アイテム　3:特技　4:ステータス\n"))
@@ -107,10 +106,14 @@ class human:
                     print("入力し直し")
             except:
                 print("入力し直し")
-        dolist[do]
-        #↓だと表示される
-        #if do==1:
-            #self.base_attack(self.n_attack)
+        if do==1:
+            self.base_attack(self.n_attack)
+        elif do==2:
+            self.item()
+        elif do==3:
+            self.special()
+        elif do==4:
+            self.show()
 
     def item(self):
         pass
