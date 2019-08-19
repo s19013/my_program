@@ -5,3 +5,9 @@
 #
 import rpg3
 rpg3.man2.next_do()
+rpg3.man2.next_do()
+rpg3.man2.next_do()
+rpg3.man2.next_do()
+rpg3.man2.next_do()
+rpg3.man2.next_do()
+rpg3.man2.next_do()
