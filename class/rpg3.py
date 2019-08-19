@@ -18,12 +18,12 @@ class human:
 #ステータスを取る
     def getname(self):
         return self.name
+    def getjob(self):
+        return self.job
     def gethp(self):
         return self.hp
     def getmp(self):
         return self.mp
-    def getjob(self):
-        return self.job
 #情報を見せる
     def show(self):
         print("名前:{} ".format(self.getname()))
