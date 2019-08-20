@@ -31,8 +31,8 @@ class human:
         print("")
         print("名前:{} ".format(self.getname()))
         print("職業:{} ".format(self.getjob()))
-        print("hp:{} ".format(self.gethp()))
-        print("mp:{}".format(self.getmp()))
+        print("hp:{}/{} ".format(self.gethp(),self.max_hp))
+        print("mp:{}/{}".format(self.getmp(),self.max_mp))
         print("")
 ##hp mpの変動
 #減る
@@ -120,7 +120,7 @@ class human:
         #         self.cri_rate=1
 
 
-
+#行動選択
     def next_do(self):
         while True:
             try:
