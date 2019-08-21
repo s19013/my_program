@@ -44,11 +44,15 @@ class human:
     def charge_hp(self,care_hp):
         if self.hp<self.max_hp:
             self.hp+=care_hp
-            print("\n{}は\n{}回復した\n".format(self.name,care_hp))
+            print("\n{}は\nhpを{}回復した\n".format(self.name,care_hp))
         else:
             print("これ以上回復できない")
     def charge_mp(self,care_mp):
-        self.mp+=care_mp
+        if self.mp<self.max_mp:
+            self.mp+=care_mp
+            print("\n{}は\nmpを{}回復した\n".format(self.name,care_mp))
+        else:
+            print("これ以上回復できない")
 ##行動
         #後々調整
 #攻撃
@@ -162,8 +166,10 @@ class Item:
         self.itamidome=10
     def choiced_hp_recover(self):
         self.name.charge_hp(50)
+        self.hp_recover-=1
     def choiced_mp_recover(self):
-        pass
+        self.name.charge_mp(50)
+        self.mp_recover-=1
     def choiced_gedoku(self):
         pass
     def choiced_siketu(self):
@@ -173,27 +179,41 @@ class Item:
     def choice_item(self,name):
         if name=="man":
             self.name=man2
-        choice=int(input("1:hp回復薬 {}　2:mp回復薬 {}　3:解毒剤 {}　4:止血剤 {}　5:痛み止め {}　6:戻る\n".format(self.hp_recover,self.mp_recover,self.gedoku,self.siketu,self.itamidome)))
+        choice=int(input("1:hp回復薬 {} |2:mp回復薬 {} |3:解毒剤 {} |4:止血剤 {} |5:痛み止め {} |6:戻る\n".format(self.hp_recover,self.mp_recover,self.gedoku,self.siketu,self.itamidome)))
         if choice==1:
             self.choiced_hp_recover()
+        elif choice==2:
+            self.choiced_mp_recover()
 
 
 
 class man(human):
     def do_power_up(self):
-        self.remaing_mp(10)
-        print("\nmp:{}".format(self.mp)) # DEBUG:
-        self.power_status(5)
-        print("強化した\n")
+        if self.mp>0:
+            self.remaing_mp(10)
+            print("\nmp:{}".format(self.mp)) # DEBUG:
+            self.power_status(5)
+            print("強化した\n")
+        else:
+            print("mpが足りない!")
+
     def strong_attack(self):
-        self.remaing_mp(5)
-        print("\nmp:{}".format(self.mp)) # DEBUG:
-        self.base_attack(50)
+        if self.mp>0:
+            self.remaing_mp(5)
+            print("\nmp:{}".format(self.mp)) # DEBUG:
+            self.base_attack(50)
+        else:
+            print("mpが足りない!")
+
     def critical_up(self):
-        self.remaing_mp(10)
-        print("\nmp:{}".format(self.mp)) # DEBUG:
-        self.critical(5)
-        print("集中した\n")
+        if self.mp>0:
+            self.remaing_mp(10)
+            print("\nmp:{}".format(self.mp)) # DEBUG:
+            self.critical(5)
+            print("集中した\n")
+        else:
+            print("mpが足りない!")
+
     def special(self):
         while True:
             try:
