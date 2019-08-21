@@ -10,7 +10,5 @@ l=soup.find_all("td",id="td1")
 for a in l:
     print(a.getText())
     n+=1
-    if n%50==0:
-        sleep(1)
 
 print(n)
