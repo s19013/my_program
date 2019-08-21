@@ -1,3 +1,4 @@
+import rpg3
 import random
 import math
 class human:
