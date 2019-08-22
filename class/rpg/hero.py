@@ -75,7 +75,7 @@ class human:
         self.remaing_hp(15)
         self.poison-=1
         print("毒で15のダメージ")
-        print("毒{}".format(self.poison))# DEBUG:
+
         if self.hp<=0:
             print("死んだ")
             sys.exit()
@@ -83,6 +83,7 @@ class human:
 
     def receive_poison(self,poison_turn):
         self.poison=poison_turn
+        # DEBUG: print("毒{}".format(self.poison))
 #攻撃
     def base_attack(self,trick):
         #強化か弱体か
@@ -107,7 +108,7 @@ class human:
                 self.cri_rate=1
         attack_value=math.floor(trick*self.cri_rate*self.power)
         enemy.ene.remaing_hp(attack_value)
-        print("attack {}\n".format(math.floor(trick*self.cri_rate*self.power))) # DEBUG:
+         # DEBUG:print("attack {}\n".format(math.floor(trick*self.cri_rate*self.power)))
 
     def power_status(self,power_turn):
         self.power_turn=power_turn
@@ -189,19 +190,31 @@ class show_status:
 
 class Item:
     def __init__(self):
-        self.hp_recover=10
+        self.hp_recover=0
         self.mp_recover=10
         self.gedoku=10
         self.siketu=10
         self.itamidome=10
     def choiced_hp_recover(self):
-        self.name.charge_hp(50)
-        self.hp_recover-=1
+        if self.hp_recover>0:
+            self.name.charge_hp(50)
+            self.hp_recover-=1
+        else:
+            print("薬がない")
+            self.choice_item(self.name)
     def choiced_mp_recover(self):
-        self.name.charge_mp(50)
-        self.mp_recover-=1
+        if self.mp_recover>0:
+            self.name.charge_mp(50)
+            self.mp_recover-=1
+        else:
+            print("薬がない")
+            self.choice_item(self.name)
     def choiced_gedoku(self):
-        self.name.receive_poison(0)
+        if self.gedoku>0:
+            self.name.receive_poison(0)
+        else:
+            print("薬がない")
+            self.choice_item(self.name)
     def choiced_siketu(self):
         pass
     def choiced_itamidome(self):
@@ -209,13 +222,23 @@ class Item:
     def choice_item(self,name):
         if name=="man":
             self.name=man2
-        choice=int(input("1:hp回復薬 {} |2:mp回復薬 {} |3:解毒剤 {} |4:止血剤 {} |5:痛み止め {} |6:戻る\n".format(self.hp_recover,self.mp_recover,self.gedoku,self.siketu,self.itamidome)))
+        while True:
+            try:
+                choice=int(input("1:hp回復薬 {} |2:mp回復薬 {} |3:解毒剤 {} |4:戻る".format(self.hp_recover,self.mp_recover,self.gedoku)))
+                if choice>4 and choice<1:
+                    print("やり直し")
+                else:
+                    break
+            except:
+                print("やり直し")
         if choice==1:
             self.choiced_hp_recover()
         elif choice==2:
             self.choiced_mp_recover()
-
-
+        elif choice==3:
+            self.choiced_gedoku()
+        elif choice==4:
+            self.name.next_do()
 
 class man(human):
     def do_power_up(self):

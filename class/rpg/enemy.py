@@ -65,7 +65,7 @@ class Enemy:
                 self.cri_rate=1
         attack_value=math.floor(trick*self.cri_rate*self.power)
         hero.man2.remaing_hp(attack_value)
-        print("[attack {}]\n".format(math.floor(trick*self.cri_rate*self.power))) # DEBUG:
+         # DEBUG:print("[attack {}]\n".format(math.floor(trick*self.cri_rate*self.power))) # DEBUG:
 
     def power_status(self,power_turn):
         self.power_turn=power_turn
@@ -85,15 +85,15 @@ class Enemy:
 
     def do_power_up(self):
         self.power_status(5)
-        print("強化した\n")
+        print("ene 強化した\n")
 
     def week(self):
-        hero.man2.power_status(-5)
-        print("弱体化した")
+        hero.man2.power# DEBUG:status(-5)
+        print("ene 弱体化した")
 
     def poison_attack(self):
         hero.man2.receive_poison(3)
-        print("毒攻撃")
+        print("ene 毒攻撃")
 
     def enemy_do(self):
     #普通の攻撃　強化　弱体化　毒　回復　強攻撃
@@ -101,12 +101,12 @@ class Enemy:
             do=random.randint(1,100)
             if do<=40:
                 self.base_attack(self.n_attack)
-                print("攻撃")# DEBUG:
+                print("ene 攻撃")# DEBUG:
                 print(do)# DEBUG:
             elif 40<do<=60:
                 strong=self.n_attack*2
                 self.base_attack(strong)
-                print("強攻撃")# DEBUG:
+                print("ene 強攻撃")# DEBUG:
                 print(do)# DEBUG:
             elif 60<do<=70:
                 self.do_power_up()
@@ -123,5 +123,33 @@ class Enemy:
             else:
                 self.poison_attack()
                 print(do)# DEBUG:
+        else:
+            do=random.randint(1,100)
+            if do<=30:
+                self.base_attack(self.n_attack)
+                print("ene 攻撃")# DEBUG:
+                print(do)# DEBUG:
+            elif 30<do<=60:
+                strong=self.n_attack*2
+                self.base_attack(strong)
+                print("ene 強攻撃")# DEBUG:
+                print(do)# DEBUG:
+            elif 60<do<=70:
+                self.do_power_up()
+                print(do)# DEBUG:
+            elif 70<do<=80:
+                self.week()
+                print(do)# DEBUG:
+            elif 80<do<=90:
+                if self.hp<100:
+                    self.charge_hp(50)
+                    print(do)# DEBUG:
+                else:
+                    self.base_attack(self.n_attack)
+                    print("ene 攻撃")# DEBUG:
+                    print(do)# DEBUG:
+            else:
+                self.poison_attack()
+                print(do)# DEBUG:
 
-ene=Enemy("ene1",100,30)
+ene=Enemy("ene1",300,30)

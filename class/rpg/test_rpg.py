@@ -9,6 +9,6 @@ import hero
 import enemy
 import sys
 while True:
-    enemy.ene.enemy_do()
     hero.man2.check()
     hero.man2.next_do()
+    enemy.ene.enemy_do()
