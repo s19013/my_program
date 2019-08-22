@@ -6,10 +6,9 @@
 #弱体は負の数
 #
 import hero
-hero.man2.next_do()
-hero.man2.next_do()
-hero.man2.next_do()
-hero.man2.next_do()
-hero.man2.next_do()
-hero.man2.next_do()
-hero.man2.next_do()
+import enemy
+import sys
+while True:
+    enemy.ene.enemy_do()
+    hero.man2.check()
+    hero.man2.next_do()
