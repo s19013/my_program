@@ -19,28 +19,14 @@ class human:
         self.mahi=0
         self.blood=0
 
-#ステータスを取る
-    # def getname(self):
-    #     return self.name
-    # def getjob(self):
-    #     return self.job
-    # def gethp(self):
-    #     return self.hp
-    # def getmp(self):
-    #     return self.mp
-#情報を見せる
     def show(self):
         print("\n名前:{} |職業:{} |hp:{}/{} |mp:{}/{} |".format(self.name,self.job,self.hp,self.max_hp,self.mp,self.max_mp))
-#死んだ時の関数
 
-#状態を調べる
     def check(self):
         if self.poison>0:
             self.poison_status()
         else:
             pass
-##hp mpの変動
-#減る
     def remaing_hp(self,damage):
         self.hp-=damage
         print("\n{}は{}のダメージをうけた\n".format(self.name,damage))
@@ -51,7 +37,6 @@ class human:
 
     def remaing_mp(self,used_mp):
         self.mp-=used_mp
-#増える
     def charge_hp(self,care_hp):
         if self.hp<self.max_hp:
             self.hp+=care_hp
@@ -68,9 +53,6 @@ class human:
                 self.mp=self.max_mp
         else:
             print("これ以上回復できない")
-##行動
-        #後々調整
-#どく
     def poison_status(self):
         self.remaing_hp(15)
         self.poison-=1
@@ -83,78 +65,37 @@ class human:
 
     def receive_poison(self,poison_turn):
         self.poison=poison_turn
-        # DEBUG: print("毒{}".format(self.poison))
-#攻撃
     def base_attack(self,trick):
-        #強化か弱体か
         self.power_status(self.power_turn)
-        #クリティカル関係
-        # self.critical(self.cri_up_turn)
         if self.cri_up_turn>0:
             self.cri=random.randint(1,10)
             if self.cri>3:
-                print("クリティカル！")# DEBUG:
                 self.cri_rate=1.4
             else:
                 self.cri_rate=1
             self.cri_up_turn-=1
-            # DEBUG:print("cri_up_turn:{}".format(self.cri_up_turn))
         else:
             self.cri=random.randint(1,10)
             if self.cri>8:
-                print("クリティカル")# DEBUG:
                 self.cri_rate=1.4
             else:
                 self.cri_rate=1
         attack_value=math.floor(trick*self.cri_rate*self.power)
         enemy.ene.remaing_hp(attack_value)
-         # DEBUG:print("attack {}\n".format(math.floor(trick*self.cri_rate*self.power)))
 
     def power_status(self,power_turn):
         self.power_turn=power_turn
         if self.power_turn>0:
             self.power=1.5
             self.power_turn-=1
-            print("power_status:{}".format(self.power)) # DEBUG:
-            print("power_turn:{}\n".format(self.power_turn)) # DEBUG:
         elif self.power_turn<0:
             self.power=0.5
             self.power_turn+=1
-            print("power_status:{}".format(self.power)) # DEBUG:
-            print("power_turn:{}\n".format(self.power_turn)) # DEBUG:
         else:
             self.power=1
-            print("\npower_status:{}".format(self.power)) # DEBUG:
-
-    # def critical(self,cri_up_turn):
-    #     self.cri_up_turn=cri_up_turn
-        # try:
-        #     pass
-        # except :
-        #     cri_up_turn=0
-        # if self.cri_up_turn==None or self.cri_up_turn==0:
-        #     self.cri_up_turn=0
-        # else:
-        #     pass
-        # if self.cri_up_turn>0:
-        #     self.cri=random.randint(1,10)
-        #     if self.cri>4:
-        #         print("cri!") #DEBUG:
-        #         self.cri_rate=1.4
-        #     else:
-        #         self.cri_rate=1
-        #     self.cri_up_turn-=1
-        #     # DEBUG: print(self.cri_up_turn)
-        # else:
-        #     self.cri=random.randint(1,10)
-        #     if self.cri>8:
-        #         print("cri")# DEBUG:
-        #         self.cri_rate=1.4
-        #     else:
-        #         self.cri_rate=1
 
 
-#行動選択
+
     def next_do(self):
         while True:
             try:
@@ -176,8 +117,6 @@ class human:
         elif do==4:
             show_status().show_info(self.name)
 
-    #def back(self):
-    #    self.next_do()
 
 class show_status:
     def show_info(self,name):
@@ -190,7 +129,7 @@ class show_status:
 
 class Item:
     def __init__(self):
-        self.hp_recover=0
+        self.hp_recover=10
         self.mp_recover=10
         self.gedoku=10
         self.siketu=10
@@ -244,7 +183,6 @@ class man(human):
     def do_power_up(self):
         if self.mp>0:
             self.remaing_mp(10)
-            print("\nmp:{}".format(self.mp)) # DEBUG:
             self.power_status(5)
             print("強化した\n")
         else:
@@ -253,7 +191,6 @@ class man(human):
     def strong_attack(self):
         if self.mp>0:
             self.remaing_mp(5)
-            print("\nmp:{}".format(self.mp)) # DEBUG:
             self.base_attack(50)
         else:
             print("mpが足りない!")
@@ -261,7 +198,6 @@ class man(human):
     def critical_up(self):
         if self.mp>0:
             self.remaing_mp(10)
-            print("\nmp:{}".format(self.mp)) # DEBUG:
             self.cri_up_turn=5
             print("集中した\n")
         else:
@@ -288,8 +224,5 @@ class man(human):
         else:
             self.next_do()
 
-        #speciallist={1:"a"}
 item=Item()
 man2=man("man","デバック",300,300,30)
-#woman=human("woman",90,110)
-#show_status().show_info(man.getname(),man.gethp(),man.getmp())
