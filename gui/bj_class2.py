@@ -17,16 +17,6 @@ class Application(tk.Frame):
         self.strfont=font.Font(size=25)
         self.framefont=font.Font(size=16)
 
-        #フレーム
-        self.comside=tk.LabelFrame(master,bd=3,relief="groove",text="相手",font=self.framefont)
-        self.comside.pack(fill="x")
-
-        self.etcside=tk.Frame(master)
-        self.etcside.pack(fill="x")
-
-        self.yourside=tk.LabelFrame(master,bd=3,relief="groove",text="あなた",font=self.framefont)
-        self.yourside.pack(fill="x")
-
         self.game()
 
 
@@ -60,19 +50,19 @@ class Application(tk.Frame):
     def con(self):
         self.bhit.destroy()
         self.bstand.destroy()
-        self.info2=tk.Label(self.etcside,font=self.framefont,text="続けますか")
-        self.info2.pack()
-        self.cont=tk.Button(self.etcside,text="continue",command=self.one_more)
-        self.cont.pack(side="left",padx=(220,50))
-        self.exit=tk.Button(self.etcside,text="exit",command=lambda:root.destroy())
-        self.exit.pack(side="left")
+        self.info2=tk.Label(self,font=self.framefont,text="続けますか")
+        self.info2.grid(row=3,column=0,padx=200,columnspan=4,sticky=tk.W)
+        self.cont=tk.Button(self,text="continue",command=self.one_more)
+        self.cont.grid(row=2,column=0,padx=(200,50),sticky=tk.W)
+        self.exit=tk.Button(self,text="exit",command=lambda:root.destroy())
+        self.exit.grid(row=2,column=1,sticky=tk.W)
 
     def comturn(self):
         if sum(self.comcard)<=15:
             while True:
                 self.comcard.append(random.randint(1,13))
                 self.textyourcard.set("{}".format(self.comcard))
-                self.textcomcard_sum.set("{}".format(sum(self.comcard)))
+                self.textcomcard_sum.set("相手の合計{}".format(sum(self.comcard)))
                 if sum(self.comcard)>21:
                     self.info.set("相手がバーストしました")
                     self.con()
@@ -110,29 +100,29 @@ class Application(tk.Frame):
         self.textcomcard_sum=tk.StringVar()
         self.textcomcard_sum.set("相手の合計:{}".format(sum(self.comcard)))
 
-        self.lcomcard=tk.Label(self.comside,font=self.strfont,textvariable=self.textcomcard)
-        self.lcomcard.pack(side="left")
-        self.lcomcard_sum=tk.Label(self.comside,font=self.strfont,textvariable=self.textcomcard_sum)
-        self.lcomcard_sum.pack(side="right")
+        self.lcomcard=tk.Label(self,font=self.strfont,textvariable=self.textcomcard)
+        self.lcomcard.grid(row=0,column=0,sticky=tk.W)
+        self.lcomcard_sum=tk.Label(self,font=self.strfont,textvariable=self.textcomcard_sum)
+        self.lcomcard_sum.grid(row=0,column=1,sticky=tk.E)
         #中央
         self.info=tk.StringVar()
         self.info.set("hit or stand")
-        self.linfo=tk.Label(self.etcside,textvariable=self.info,font=self.framefont)
-        self.linfo.pack()
-        self.bhit=tk.Button(self.etcside,text="hit",command=self.update_yourcard)
-        self.bhit.pack(side="left",padx=(225,50))
-        self.bstand=tk.Button(self.etcside,text="stand",command=self.comturn)
-        self.bstand.pack(side="left")
+        self.linfo=tk.Label(self,textvariable=self.info,font=self.framefont)
+        self.linfo.grid(row=1,column=0,padx=200,columnspan=4,sticky=tk.W)
+        self.bhit=tk.Button(self,text="hit",command=self.update_yourcard)
+        self.bhit.grid(row=2,column=0,padx=(200,50),sticky=tk.W)
+        self.bstand=tk.Button(self,text="stand",command=self.comturn)
+        self.bstand.grid(row=2,column=1,sticky=tk.W)
         #自分
         self.textyourcard=tk.StringVar()
         self.textyourcard.set("{}".format(self.yourcard))
         self.textyourcard_sum=tk.StringVar()
         self.textyourcard_sum.set("あなたの合計:{}".format(sum(self.yourcard)))
 
-        self.lmycord=tk.Label(self.yourside,font=self.strfont,textvariable=self.textyourcard)
-        self.lmycord.pack(side="left")
-        self.lmycord_sum=tk.Label(self.yourside,font=self.strfont,textvariable=self.textyourcard_sum)
-        self.lmycord_sum.pack(side="right")
+        self.lmycord=tk.Label(self,font=self.strfont,textvariable=self.textyourcard)
+        self.lmycord.grid(row=4,column=0,sticky=tk.W,)
+        self.lmycord_sum=tk.Label(self,font=self.strfont,textvariable=self.textyourcard_sum)
+        self.lmycord_sum.grid(row=4,column=1,sticky=tk.E)
 
         if sum(self.yourcard)>21:
             self.info.set("バーストしました (ﾉд-｡)ｸｽﾝ\nゲームオーバー")
