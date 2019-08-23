@@ -1,12 +1,12 @@
-4import tkinter
+import tkinter
 import tkinter as tk
 import random
-import sys
 from tkinter import ttk
 from tkinter import *
 from tkinter import font
 import tkinter.ttk as ttk
 import time
+import sys
 win=tk.Tk()
 win.geometry("600x600")
 #フォント
