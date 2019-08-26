@@ -17,6 +17,16 @@ class Application(tk.Frame):
         self.strfont=font.Font(size=25)
         self.framefont=font.Font(size=16)
 
+        self.comside=tk.LabelFrame(master,bd=3,relief="groove",text="相手",font=self.framefont)
+        self.comside.pack(fill="x")
+
+        self.etcside=tk.Frame(master)
+        self.etcside.pack(fill="x")
+
+        self.yourside=tk.LabelFrame(master,bd=3,relief="groove",text="あなた",font=self.framefont)
+        self.yourside.pack(fill="x")
+
+
         self.game()
 
 
@@ -51,24 +61,24 @@ class Application(tk.Frame):
         self.bhit.destroy()
         self.bstand.destroy()
         self.info2.set("続けますか")
-        self.cont=tk.Button(self,text="continue",command=self.one_more)
+        self.cont=tk.Button(self.etcside,text="continue",command=self.one_more)
         self.cont.grid(row=3,column=0,padx=(200,50),sticky=tk.W+tk.N)
-        self.exit=tk.Button(self,text="exit",command=lambda:root.destroy())
+        self.exit=tk.Button(self.etcside,text="exit",command=lambda:root.destroy())
         self.exit.grid(row=3,column=1,sticky=tk.W+tk.N)
 
     def comturn(self):
-        if sum(self.comcard)<=15:
-            while True:
-                self.comcard.append(random.randint(1,13))
-                self.textyourcard.set("{}".format(self.comcard))
-                self.textcomcard_sum.set("相手の合計{}".format(sum(self.comcard)))
-                if sum(self.comcard)>21:
-                    self.info.set("相手がバーストしました")
-                    self.con()
-                    break
-                else:
-                    self.battle()
-                    break
+        # if sum(self.comcard)<=15:
+        while sum(self.comcard)<=15:
+            self.comcard.append(random.randint(1,13))
+            self.textcomcard_sum.set("相手の合計{}".format(sum(self.comcard)))
+            self.textcomcard.set("{}".format(self.comcard))
+            if sum(self.comcard)>21:
+                self.info.set("相手がバーストしました")
+                self.con()
+                break
+            else:
+                self.battle()
+                break
         else:
             self.battle()
 
@@ -99,33 +109,33 @@ class Application(tk.Frame):
         self.textcomcard_sum=tk.StringVar()
         self.textcomcard_sum.set("相手の合計:{}".format(sum(self.comcard)))
 
-        self.lcomcard=tk.Label(self,font=self.strfont,textvariable=self.textcomcard)
-        self.lcomcard.grid(row=0,column=0,columnspan=10,sticky=tk.W+tk.N)
-        self.lcomcard_sum=tk.Label(self,font=self.strfont,textvariable=self.textcomcard_sum)
-        self.lcomcard_sum.grid(row=0,column=1,sticky=tk.E+tk.N,columnspan=10)
+        self.lcomcard=tk.Label(self.comside,font=self.strfont,textvariable=self.textcomcard)
+        self.lcomcard.grid(row=0,column=0,columnspan=5)
+        self.lcomcard_sum=tk.Label(self.comside,font=self.strfont,textvariable=self.textcomcard_sum)
+        self.lcomcard_sum.grid(row=0,column=5,columnspan=5,padx=(100,0),sticky=tk.E)
         #中央
         self.info=tk.StringVar()
         self.info.set("hit or stand")
         self.info2=tk.StringVar()
         self.info2.set("")
-        self.linfo=tk.Label(self,textvariable=self.info,font=self.framefont)
-        self.linfo.grid(row=1,column=0,padx=200,pady=(0,10),columnspan=10,rowspan=1,sticky=tk.W+tk.N)
-        self.linfo2=tk.Label(self,textvariable=self.info2,font=self.framefont)
-        self.linfo2.grid(row=2,column=0,padx=200,columnspan=10,sticky=tk.W)
-        self.bhit=tk.Button(self,text="hit",command=self.update_yourcard)
-        self.bhit.grid(row=5,column=0,padx=(200,50),sticky=tk.W+tk.N)
-        self.bstand=tk.Button(self,text="stand",command=self.comturn)
-        self.bstand.grid(row=5,column=1,sticky=tk.W+tk.N)
+        self.linfo=tk.Label(self.etcside,textvariable=self.info,font=self.framefont)
+        self.linfo.grid(row=1,column=0,padx=200,pady=(0,10),columnspan=10,rowspan=1,sticky=tk.W+tk.E)
+        self.linfo2=tk.Label(self.etcside,textvariable=self.info2,font=self.framefont,text="続けますか")
+        self.linfo2.grid(row=2,column=0,padx=200,columnspan=10,sticky=tk.W+tk.E)
+        self.bhit=tk.Button(self.etcside,text="hit",command=self.update_yourcard)
+        self.bhit.grid(row=5,column=0,padx=(200,50),sticky=tk.W)
+        self.bstand=tk.Button(self.etcside,text="stand",command=self.comturn)
+        self.bstand.grid(row=5,column=1,sticky=tk.W)
         #自分
         self.textyourcard=tk.StringVar()
         self.textyourcard.set("{}".format(self.yourcard))
         self.textyourcard_sum=tk.StringVar()
         self.textyourcard_sum.set("あなたの合計:{}".format(sum(self.yourcard)))
 
-        self.lmycord=tk.Label(self,font=self.strfont,textvariable=self.textyourcard)
-        self.lmycord.grid(row=6,column=0,sticky=tk.W+tk.S,columnspan=10)
-        self.lmycord_sum=tk.Label(self,font=self.strfont,textvariable=self.textyourcard_sum)
-        self.lmycord_sum.grid(row=6,column=1,sticky=tk.E+tk.S,columnspan=10)
+        self.lmycord=tk.Label(self.yourside,font=self.strfont,textvariable=self.textyourcard)
+        self.lmycord.grid(row=0,column=0,sticky=tk.W)
+        self.lmycord_sum=tk.Label(self.yourside,font=self.strfont,textvariable=self.textyourcard_sum)
+        self.lmycord_sum.grid(row=0,column=1,sticky=tk.E,padx=(250,0))
 
         if sum(self.yourcard)>21:
             self.info.set("バーストしました")
