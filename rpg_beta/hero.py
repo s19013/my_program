@@ -20,7 +20,7 @@ class human:
         self.blood=0
 
     def show(self):
-        print("\n名前:{} |職業:{} |hp:{}/{} |mp:{}/{} |".format(self.name,self.job,self.hp,self.max_hp,self.mp,self.max_mp))
+        print("\n名前:{} | 職業:{} | hp:{}/{} | mp:{}/{} |".format(self.name,self.job,self.hp,self.max_hp,self.mp,self.max_mp))
 
     def check(self):
         if self.poison>0:
