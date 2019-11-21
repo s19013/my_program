@@ -1,9 +1,16 @@
 import hero_base
 import enemy_base
 import os
-man=hero_base.Human("man","debug",100,100,100)
+import subprocess
+# 生成
+man=hero_base.Human("man","debug",90,100,100)
 
 # テスト用関数
+s = 0
+f = 0
+
+def show():
+    
 def die1(hp,da):
     man.show()
     man.live = False
@@ -16,12 +23,32 @@ def dei2(da):
     man.receive_damage(da)
 
 
-def izyou(p,b):
+def poison(p):
     man.show()
-    man.receive_poison(p)
-    man.receive_bleeding(b)
+    man.receive_poison_turn(p)
     man.check()
     man.show()
+    print("poison_turn:{}".format(man.poison_turn))
+
+def bleeding(b):
+    man.show()
+    man.receive_bleeding_turn(b)
+    man.check()
+    man.show()
+    print("bleeding_turn:{}".format(man.bleeding_turn))
+    print("attack_base:{}".format(man.attack_base))
+
+def bleeding_and_recovery(b,r):
+    man.show()
+    man.receive_bleeding_turn(b)
+    man.check()
+    man.show()
+    man.receive_bleeding_turn(r)
+    man.check()
+    man.show()
+    print("bleeding_turn:{}".format(man.bleeding_turn))
+    print("attack_base:{}".format(man.attack_base))
+
 
 def critical(c):
     print("cri_level={}".format(man.cri_level))
@@ -30,11 +57,8 @@ def critical(c):
     print("cri_level={}".format(man.cri_level))
     print("cri_turn={}".format(man.cri_turn))
 
-def attack():
-    man.base_attack()
-    print(man.attack_d)
+def base_attack():
+    man.attack(man.attack_base)
+    print("attack_base:{}".format(man.attack_d))
 
-
-attack()
-critical(16)
-attack()
+base_attack()

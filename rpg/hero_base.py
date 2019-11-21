@@ -6,26 +6,60 @@ from time import sleep
 class Human:
     """主要キャラのベース"""
     def __init__(self,name,job,hp,mp,attack_base):
+
         self.name = name
         self.job = job
         self.max_hp = self.hp = hp
         self.max_mp = self.mp = mp
         self.max_attack_base = self.attack_base = attack_base
-        self.power_level = 1
-        self.power_turn = 0
+
+        self.pow_level = 0
+        self.power_up_turn = 0
+        self.power_rate = 1
         self.defe_level = 0
         self.defe_turn = 0
-        self.cri_level = 0
+        self.cri_level = 1
         self.cri_turn = 0
+
+        self.poison_level = 0
         self.poison_turn = 0
+        self.mahi_level = 0
         self.mahi_turn = 0
+        self.bleeding_level = 0
         self.bleeding_turn = 0
+        self.recovery_attack_base_from_bleeding = 0
+
         self.live = True
-        self.die = 1
+        self.already_die = True
+        self.lest_turn = 0
+
         self.attack_d = 0 # DEBUG:
 
     def show(self):
-        print("\n名前:{} | 職業:{} | hp:{}/{} | mp:{}/{} |".format(self.name,self.job,self.hp,self.max_hp,self.mp,self.max_mp))
+        box=[]
+        #毒
+        if self.poison_level==1:
+            box.append("毒Lv1")
+        elif self.poison_level==2:
+            box.append("毒Lv2")
+        elif self.poison_level==3:
+            box.append("毒Lv3")
+        #出血
+        if self.bleeding_level==1:
+            box.append("出血Lv1")
+        elif self.bleeding_level==2:
+            box.append("出血Lv2")
+        elif self.bleeding_level==3:
+            box.append("出血Lv3")
+
+        print("\n" + self.name)
+        print("職業:{job} | hp:{hp}/{m_hp} | mp:{mp}/{m_mp}".format(job=self.job,hp=self.hp,m_hp=self.max_hp,mp=self.mp,m_mp=self.max_mp))
+        print("防御Lv:{} | 攻撃力レベル:Lv{} | クリティカルレベル:Lv{}".format(self.defe_level,self.pow_level,self.cri_level))
+        if box == []:
+            print("状態異常:なし")
+        else:
+            print("状態異常:{}".format(box))
+
 
     def use_mp(self,used):
         self.mp -= used
@@ -56,58 +90,105 @@ class Human:
             print("\nこれ以上回復できない")
 
 # ダメージ系
-    def receive_poison(self,poison_turn):
-        self.poison_turn = poison_turn
+    def receive_mahi_turn(self,mahi_turn):
+        self.mahi_turn += mahi_turn
 
-    def receive_mahi(self,mahi_turn):
-        self.mahi_turn = mahi_turn
-
-    def receive_bleeding(self,bleeding_turn):
-        self.bleeding_turn = bleeding_turn
-
-    def receive_damage(self,damage):
+    def receive_damage(self,damage,type):
         if self.live == True:
-            self.hp-=damage
-            sleep(0.5)
-            print("\n{}は{}のダメージを受けた".format(self.name,damage))
-            if self.hp < 0 and self.die is 0:
-                print("{}は死んでしまった".format(self.name))
-                self.die += 1
-        else:
-            pass
+            if type == "n":
+                self.hp-=damage
+                sleep(0.5)
+                print("\n{}は{}のダメージを受けた".format(self.name,damage))
+            elif type == "p":
+                self.hp-=damage
+                sleep(0.5)
+                print("\n{}は毒で{}のダメージを受けた".format(self.name,damage))
+            elif type == "b":
+                self.hp -= damage
+                sleep(0.5)
+                print("\n{}は出血で{}のダメージを受けた".format(self.name,damage))
+        if self.hp <= 0 and self.already_die == 0:
+            print("{}は死んでしまった".format(self.name))
+            self.already_die = False
+            self.live = False
         # 後で死亡に関するいろいろをかく
-    def defence_turn
 ##状態系
-    def check(self):
-        # 毒
-        if self.poison_turn > 0:
-            self.hp -= 30
-            sleep(0.5)
-            print("\n{}は毒で{}のダメージ".format(self.name,30))
+    #毒
+    def receive_poison_turn(self,poison_turn):
+        self.poison_turn += poison_turn
+        if self.poison_turn >14:
+            self.poison_level = 3
+        elif self.poison_turn >9:
+            self.poison_level = 2
+        elif self.poison_turn > 4:
+            self.poison_level = 1
+        else:
+            self.poison_level = 0
+
+    def poison(self):
+        if self.poison_level>0:
+            if self.poison_level == 3:
+                self.receive_damage(round(self.hp*0.3)+5,"p")
+            elif self.poison_level == 2:
+                self.receive_damage(round(self.hp*0.2)+5,"p")
+            elif self.poison_level == 1:
+                self.receive_damage(round(self.hp*0.1)+5,"p")
             self.poison_turn -= 1
+        if self.poison_turn<=0:
+            self.poison_turn = 0
+
+    #出血
+    def receive_bleeding_turn(self,bleeding_turn):
+        self.bleeding_turn += bleeding_turn
+        if self.bleeding_turn >14:
+            self.bleeding_level = 3
+        elif self.bleeding_turn >9:
+            self.bleeding_level = 2
+        elif self.bleeding_turn > 4:
+            self.bleeding_level = 1
         else:
-            pass
+            self.bleeding_level = 0
+
+    def bleeding(self):
+            if self.bleeding_turn > 0:
+                if self.bleeding_level == 3:
+                    self.receive_damage(round(self.hp*0.4)+10,"b")
+                    abd = round(self.attack_base * 0.15)
+                    self.attack_base -= abd
+                    self.recovery_attack_base_from_bleeding += abd
+
+                elif self.bleeding_level == 2:
+                    self.receive_damage(round(self.hp*0.3)+10,"b")
+                    abd = round(self.attack_base * 0.1)
+                    self.attack_base -= abd
+                    self.recovery_attack_base_from_bleeding += abd
+
+                elif self.bleeding_level == 1:
+                    self.receive_damage(round(self.hp*0.2)+10,"b")
+                    abd = round(self.attack_base * 0.05)
+                    self.attack_base -= abd
+                    self.recovery_attack_base_from_bleeding += abd
+
+                self.bleeding_turn -= 1
+            if self.bleeding_turn<=0:
+                self.bleeding_turn = 0
+                self.attack_base += self.recovery_attack_base_from_bleeding
+#確認
+    def check(self):
         # 出血
-        if self.bleeding_turn > 0:
-            self.hp -= 40
-            sleep(0.5)
-            print("\n{}は出血で{}のダメージ".format(self.name,40))
-            self.bleeding_turn -= 1
-            if self.attack_base == self.max_attack_base:
-                self.attack_base -= 40
-            else:
-                pass
-        else:
-            self.attack_base = self.max_attack_base
+        self.poison()
+        self.bleeding()
         # クリティカル
         if self.cri_turn > 0:
             self.cri_turn-=1
         else:
             pass
 #攻撃
-    def base_attack(self):
+    def attack(self,damage):
         ##仮書き　後ほど編集
-        a = self.attack_base * self.critical() * self.power_rate
+        a = damage * self.critical() * self.power_rate
+        print("{}の攻撃".format(self.name))
+        sleep(0.5)
         self.attack_d = round(a)
 
     def critical_turn(self,turn):
@@ -144,5 +225,6 @@ class Human:
             if cri > 80:
                 print("クリティカル")
                 return 1.5
+            return 1
         else:
             return 1
