@@ -11,21 +11,21 @@ class Human:
         self.job = job
         self.max_hp = self.hp = hp
         self.max_mp = self.mp = mp
+        #--------------------------
         self.max_attack_base = self.attack_base = attack_base
-
         self.pow_level = 0
         self.power_up_turn = 0
         self.power_rate = 1
-
+#---------------------------
         self.defe = False
         self.defe_level = 0
         self.defe_turn = 0
         self.defe_rate = 1
-
+#----------------------------
         self.cri_level = 0
         self.cri_turn = 0
         self.cri_rate = 1
-
+#-----------------------------
         self.poison_level = 0
         self.poison_turn = 0
         self.mahi_level = 0
@@ -33,11 +33,11 @@ class Human:
         self.bleeding_level = 0
         self.bleeding_turn = 0
         self.recovery_attack_base_from_bleeding = 0
-
+#-------------------------------
         self.live = True
         self.already_die = True
         self.lest_turn = 0
-
+#-----------------------------------
         self.attack_d = 0 # DEBUG:
 
     def show(self):
