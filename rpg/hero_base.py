@@ -16,10 +16,15 @@ class Human:
         self.pow_level = 0
         self.power_up_turn = 0
         self.power_rate = 1
+
+        self.defe = False
         self.defe_level = 0
         self.defe_turn = 0
-        self.cri_level = 1
+        self.defe_rate = 1
+
+        self.cri_level = 0
         self.cri_turn = 0
+        self.cri_rate = 1
 
         self.poison_level = 0
         self.poison_turn = 0
@@ -96,7 +101,12 @@ class Human:
     def receive_damage(self,damage,type):
         if self.live == True:
             if type == "n":
-                self.hp-=damage
+                if self.defe == True:
+                    damage -= round(1.2 * self.defe_rate)
+                    self.hp-= damage
+                    self.defe = False
+                else:
+                    self.hp-= damage
                 sleep(0.5)
                 print("\n{}は{}のダメージを受けた".format(self.name,damage))
             elif type == "p":
@@ -112,6 +122,23 @@ class Human:
             self.already_die = False
             self.live = False
         # 後で死亡に関するいろいろをかく
+
+#防御
+    def defence_turn(self):
+        if self.defe_turn > 14:
+            self.defe_level = 3
+            self.defe_rate = 2
+        elif self.defe_turn > 9:
+            self.defe_level = 2
+            self.defe_rate = 1.6
+        elif self.defe_turn > 4:
+            self.defe_level =1
+            self.defe_rate = 1.2
+        else:
+            self.defe_level =0
+            self.defe_rate = 1
+
+
 ##状態系
     #毒
     def receive_poison_turn(self,poison_turn):
@@ -178,28 +205,31 @@ class Human:
         # 出血
         self.poison()
         self.bleeding()
+        self.defence_turn()
         # クリティカル
         if self.cri_turn > 0:
             self.cri_turn-=1
         else:
             pass
+
 #攻撃
     def attack(self,damage):
         ##仮書き　後ほど編集
-        a = damage * self.critical() * self.power_rate
+        self.critical()
+        a = damage * self.cri_rate * self.power_rate
         print("{}の攻撃".format(self.name))
         sleep(0.5)
         self.attack_d = round(a)
 
     def critical_turn(self,turn):
         self.cri_turn += turn
-        if self.cri_turn > 20:
+        if self.cri_turn > 19:
             self.cri_level = 4
-        elif self.cri_turn > 15:
+        elif self.cri_turn > 14:
             self.cri_level = 3
-        elif self.cri_turn > 10:
+        elif self.cri_turn > 9:
             self.cri_level = 2
-        elif self.cri_turn >5:
+        elif self.cri_turn > 4:
             self.cri_level = 1
         else:
             self.cri_level = 0
@@ -208,23 +238,25 @@ class Human:
         cri = random.randint(1,100)
         if self.cri_level == 4:
                 print("クリティカル")
-                return 1.8
+                self.cri_rate = 1.8
         elif self.cri_level >3:
             if cri > 20:
                 print("クリティカル")
-                return 1.5
+                self.cri_rate = 1.5
         elif self.cri_level >2:
             if cri >40:
                 print("クリティカル")
-                return 1.5
+                self.cri_rate = 1.5
         elif self.cri_level >1:
             if cri > 60:
                 print("クリティカル")
-                return 1.5
+                self.cri_rate = 1.5
         elif self.cri_level >0:
             if cri > 80:
                 print("クリティカル")
-                return 1.5
-            return 1
-        else:
-            return 1
+                self.cri_rate = 1.5
+        elif self.cri_level == 0:
+            if cri > 90:
+                print("クリティカル")
+                self.cri_rate = 1.5
+        self.cri_turn -= 1

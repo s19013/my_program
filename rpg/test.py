@@ -10,7 +10,8 @@ s = 0
 f = 0
 
 def show():
-    
+    man.show()
+
 def die1(hp,da):
     man.show()
     man.live = False
@@ -60,5 +61,5 @@ def critical(c):
 def base_attack():
     man.attack(man.attack_base)
     print("attack_base:{}".format(man.attack_d))
-
-base_attack()
+    print("cri_level={}".format(man.cri_level))
+    print("cri_turn={}".format(man.cri_turn))
