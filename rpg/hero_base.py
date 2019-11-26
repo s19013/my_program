@@ -35,7 +35,7 @@ class Human:
         self.recovery_attack_base_from_bleeding = 0
 #-------------------------------
         self.live = True
-        self.already_die = True
+        self.already_die = False
         self.lest_turn = 0
 #-----------------------------------
         self.attack_d = 0 # DEBUG:
@@ -65,9 +65,25 @@ class Human:
         else:
             print("状態異常:{}".format(box))
 
+#確認
+    def check(self):
+        # 出血
+        self.poison()
+        self.bleeding()
+        self.defence()
+        self.defe = False
+
+
+
 
     def use_mp(self,used):
         self.mp -= used
+        if self.mp > 0:
+            return True
+        else:
+            print("mpが足りない")
+            return False
+
 
 # 回復
     def recovery_hp(self,care_hp):
@@ -104,7 +120,6 @@ class Human:
                 if self.defe == True:
                     damage -= round(1.2 * self.defe_rate)
                     self.hp-= damage
-                    self.defe = False
                 else:
                     self.hp-= damage
                 sleep(0.5)
@@ -117,29 +132,13 @@ class Human:
                 self.hp -= damage
                 sleep(0.5)
                 print("\n{}は出血で{}のダメージを受けた".format(self.name,damage))
-        if self.hp <= 0 and self.already_die == 0:
+        if self.hp <= 0 and self.already_die == False
             print("{}は死んでしまった".format(self.name))
-            self.already_die = False
+            self.already_die = True
             self.live = False
         # 後で死亡に関するいろいろをかく
-
-#防御
-    def defence_turn(self):
-        if self.defe_turn > 14:
-            self.defe_level = 3
-            self.defe_rate = 2
-        elif self.defe_turn > 9:
-            self.defe_level = 2
-            self.defe_rate = 1.6
-        elif self.defe_turn > 4:
-            self.defe_level =1
-            self.defe_rate = 1.2
-        else:
-            self.defe_level =0
-            self.defe_rate = 1
-
-
-##状態系
+###バフ　デバフ系
+##デバフ
     #毒
     def receive_poison_turn(self,poison_turn):
         self.poison_turn += poison_turn
@@ -197,20 +196,28 @@ class Human:
                     self.recovery_attack_base_from_bleeding += abd
 
                 self.bleeding_turn -= 1
+            if self.attack_base <=0:
+                self.attack_base = 1
             if self.bleeding_turn<=0:
                 self.bleeding_turn = 0
                 self.attack_base += self.recovery_attack_base_from_bleeding
-#確認
-    def check(self):
-        # 出血
-        self.poison()
-        self.bleeding()
-        self.defence_turn()
-        # クリティカル
-        if self.cri_turn > 0:
-            self.cri_turn-=1
+##バフ
+#防御
+    def defence(self,defe_turn):
+        self.defe_turn += defe_turn
+        if self.defe_turn > 14:
+            self.defe_level = 3
+            self.defe_rate = 2
+        elif self.defe_turn > 9:
+            self.defe_level = 2
+            self.defe_rate = 1.6
+        elif self.defe_turn > 4:
+            self.defe_level =1
+            self.defe_rate = 1.2
         else:
-            pass
+            self.defe_level =0
+            self.defe_rate = 1
+
 
 #攻撃
     def attack(self,damage):
@@ -239,24 +246,20 @@ class Human:
         if self.cri_level == 4:
                 print("クリティカル")
                 self.cri_rate = 1.8
-        elif self.cri_level >3:
+        elif self.cri_level == 3:
             if cri > 20:
                 print("クリティカル")
                 self.cri_rate = 1.5
-        elif self.cri_level >2:
-            if cri >40:
+        elif self.cri_level == 2:
+            if cri >45:
                 print("クリティカル")
                 self.cri_rate = 1.5
-        elif self.cri_level >1:
-            if cri > 60:
-                print("クリティカル")
-                self.cri_rate = 1.5
-        elif self.cri_level >0:
-            if cri > 80:
+        elif self.cri_level == 1:
+            if cri > 70:
                 print("クリティカル")
                 self.cri_rate = 1.5
         elif self.cri_level == 0:
-            if cri > 90:
+            if cri > 95:
                 print("クリティカル")
                 self.cri_rate = 1.5
         self.cri_turn -= 1
