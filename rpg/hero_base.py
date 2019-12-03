@@ -132,7 +132,7 @@ class Human:
                 self.hp -= damage
                 sleep(0.5)
                 print("\n{}は出血で{}のダメージを受けた".format(self.name,damage))
-        if self.hp <= 0 and self.already_die == False
+        if self.hp <= 0 and self.already_die == False:
             print("{}は死んでしまった".format(self.name))
             self.already_die = True
             self.live = False
