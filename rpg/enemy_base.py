@@ -4,7 +4,8 @@ import math
 import sys
 from time import sleep
 
-class Enemy(Human):
-    pass
-    # def __init__(self,name,job,hp,mp,attack_base):
-    #     super().__init__()
+class Slime(Human):
+    def next_do(self):
+        print("comming soon")
+        # ran = random.randint(1.10)
+        # if ran>8:

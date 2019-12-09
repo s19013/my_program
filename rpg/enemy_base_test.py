@@ -3,7 +3,7 @@ import enemy_base
 import os
 import subprocess
 # 生成
-ene=enemy_base.Enemy("ene","debug",90,100,100)
+ene=enemy_base.Slime("ene","debug",90,100,100)
 
 # テスト用関数
 s = 0
@@ -12,26 +12,26 @@ f = 0
 def show_test():
     ene.show()
 
-def die1_test(hp,da,ty):
+def die1_test(hp,da):
     ene.show()
     ene.live = False
     ene.recovery_hp(hp)
-    ene.receive_damage(da,ty)
+    ene.receive_damage(da)
     ene.show()
 
-def receive_damage_test(da,ty):
+def receive_damage_test(da):
     ene.show()
-    ene.receive_damage(da,ty)
+    ene.receive_damage(da)
 
 
-def poison_test(p):
+def poison_test(p=0):
     ene.show()
     ene.receive_poison_turn(p)
     ene.check()
     ene.show()
     print("poison_turn:{}".format(ene.poison_turn))
 
-def bleeding_test(b):
+def bleeding_test(b=0):
     ene.show()
     ene.receive_bleeding_turn(b)
     ene.check()
@@ -39,11 +39,12 @@ def bleeding_test(b):
     print("bleeding_turn:{}".format(ene.bleeding_turn))
     print("attack_base:{}".format(ene.attack_base))
 
-def bleeding_and_recovery_test(b,r):
+def bleeding_and_recovery_test(b=0,r=0):
     ene.show()
     ene.receive_bleeding_turn(b)
     ene.check()
     ene.show()
+    # 負の値を入れる
     ene.receive_bleeding_turn(r)
     ene.check()
     ene.show()
@@ -51,7 +52,7 @@ def bleeding_and_recovery_test(b,r):
     print("attack_base:{}".format(ene.attack_base))
 
 
-def critical_test(c):
+def critical_test(c=0):
     print("cri_level={}".format(ene.cri_level))
     print("cri_turn={}".format(ene.cri_turn))
     ene.critical_turn(c)
@@ -64,4 +65,12 @@ def base_attack_test():
     print("cri_level={}".format(ene.cri_level))
     print("cri_turn={}".format(ene.cri_turn))
 
-receive_damage_test(90,"n")
+def guard_test(df = 0):
+    ene.defence_turn(df)
+    ene.guard()
+    ene.receive_damage(100)
+
+def next_do_test():
+    ene.next_do()
+
+next_do_test()

@@ -111,13 +111,14 @@ receive_damage(damage,type)
     生きている　= False
 --------------------------
 #防御
-defence(defe_turn)
+receive_defence_turn(defe_turn)
   防御力ターンとレートを管理する関数
+  (増やすのも減らすのもこれを使う)
   防御ターン　←　防御ターン　+ defence_turn
   効果ターンによってレベルが上がる
   レベルが上がると防御倍率が上がる
   turn:Lv:rate
-  0:0:1
+  0:0:1()
   5:1:1.2
   10:2:1.6
   15:3:2
@@ -126,6 +127,7 @@ defence(defe_turn)
 #毒
 receive_poison_turn(poison_turn)　
   毒ターンを管理する関数
+  (増やすのも減らすのもこれを使う)
   自分のターン数　←　自分のターン + poison_turn
   効果ターンによってレベルが上がる
   死ぬとリセットされる
@@ -150,6 +152,7 @@ poison()
 #出血
 receive_bleeding_turn(bleeding_turn)
   出血ターンを管理する関数
+  (増やすのも減らすのもこれを使う)
   自分のターン　←　自分のターン　+　bleeding_turn
   効果ターンによってレベルが上がる
   死ぬとリセットされる
@@ -182,7 +185,7 @@ attack(damage)
   #四捨五入
   出力: ({自分の名前}の攻撃)
 
-critical_turn(turn)
+receive_critical_turn(turn)
   クリティカルターンを管理する関数
   レベルが上がるほどクリティカルの可能性が上がる
   死ぬとリセットされる
@@ -202,6 +205,14 @@ critical()
   2:~40
   1:~60
   0:
+
+next_do()
+  出力:どうする？
+  出力:1:攻撃 2:防御 3:必殺技 4:アイテム　5:ステータス
+  want_do ← 入力:数字
+  want_doが数字かどうか調べる
+    数字:
+    数字以外:やり直し
 
 攻撃力上げるに関する関数
 状態異常に関する関数
@@ -264,7 +275,6 @@ sefl.def = Falseに戻す
 状態異常も回復receiveを使う
 
 次やること
-防御力、防御、攻撃力の関数を作る
-
+次に敵がなにをするかを決める関数を作る
 enemy_baseを作る
 mainを作って動作確認をする

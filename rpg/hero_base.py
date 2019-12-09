@@ -1,6 +1,7 @@
 import random
 import math
 import sys
+import main
 from time import sleep
 
 class Human:
@@ -33,6 +34,7 @@ class Human:
         self.bleeding_level = 0
         self.bleeding_turn = 0
         self.recovery_attack_base_from_bleeding = 0
+        self.sleep = False
 #-------------------------------
         self.live = True
         self.already_die = False
@@ -114,11 +116,13 @@ class Human:
     def receive_mahi_turn(self,mahi_turn):
         self.mahi_turn += mahi_turn
 
-    def receive_damage(self,damage,type):
+    def receive_damage(self,damage,type="n"):
         if self.live == True:
             if type == "n":
                 if self.defe == True:
-                    damage -= round(1.2 * self.defe_rate)
+                    damage = round(damage/(1.05 * self.defe_rate))
+                    print(damage)
+                    print(self.defe_level)
                     self.hp-= damage
                 else:
                     self.hp-= damage
@@ -201,9 +205,12 @@ class Human:
             if self.bleeding_turn<=0:
                 self.bleeding_turn = 0
                 self.attack_base += self.recovery_attack_base_from_bleeding
+    ##睡眠
+    def sleep_turn(arg):
+        pass
 ##バフ
 #防御
-    def defence(self,defe_turn):
+    def receive_defence_turn(self,defe_turn):
         self.defe_turn += defe_turn
         if self.defe_turn > 14:
             self.defe_level = 3
@@ -217,18 +224,21 @@ class Human:
         else:
             self.defe_level =0
             self.defe_rate = 1
-
+    def guard(self):
+        print(self.name+"は攻撃に備えた")
+        self.defe = True
 
 #攻撃
     def attack(self,damage):
         ##仮書き　後ほど編集
         self.critical()
         a = damage * self.cri_rate * self.power_rate
+        
         print("{}の攻撃".format(self.name))
         sleep(0.5)
         self.attack_d = round(a)
 
-    def critical_turn(self,turn):
+    def receive_critical_turn(self,turn):
         self.cri_turn += turn
         if self.cri_turn > 19:
             self.cri_level = 4
@@ -263,3 +273,25 @@ class Human:
                 print("クリティカル")
                 self.cri_rate = 1.5
         self.cri_turn -= 1
+
+    def next_do(self):
+        print("どうする？")
+        try:
+            want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
+        except Exception as e:
+            print("\n入力し直し")
+            self.next_do()
+        if 1<=want_do and want_do<=5:
+            if want_do == 1:
+                return self.attack(self.attack_base)
+            if want_do == 2:
+                return self.guard()
+            if want_do == 3:
+                return print("comming soon")
+            if want_do == 4:
+                return print("comming soon")
+            if want_do == 5:
+                return self.show()
+        else:
+            print("\n入力し直し")
+            self.next_do()
