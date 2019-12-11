@@ -146,64 +146,72 @@ class Human:
     def receive_poison_turn(self,poison_turn):
         self.poison_turn += poison_turn
         if self.poison_turn >14:
-            self.poison_level = 3
+            self.poison_level = 4
         elif self.poison_turn >9:
-            self.poison_level = 2
+            self.poison_level = 3
         elif self.poison_turn > 4:
+            self.poison_level = 2
+        elif self.poison_turn >0:
             self.poison_level = 1
         else:
             self.poison_level = 0
 
     def poison(self):
-        if self.poison_level>0:
-            if self.poison_level == 3:
-                self.receive_damage(round(self.hp*0.3)+5,"p")
-            elif self.poison_level == 2:
-                self.receive_damage(round(self.hp*0.2)+5,"p")
-            elif self.poison_level == 1:
-                self.receive_damage(round(self.hp*0.1)+5,"p")
-            self.poison_turn -= 1
-        if self.poison_turn<=0:
-            self.poison_turn = 0
+        if self.poison_level == 4:
+            self.receive_damage(round(self.hp*0.4)+5,"p")
+        elif self.poison_level == 3:
+            self.receive_damage(round(self.hp*0.3)+5,"p")
+        elif self.poison_level == 2:
+            self.receive_damage(round(self.hp*0.2)+5,"p")
+        elif self.poison_level == 1:
+            self.receive_damage(round(self.hp*0.1)+5,"p")
+        self.receive_poison_turn(-1)
 
     #出血
     def receive_bleeding_turn(self,bleeding_turn):
         self.bleeding_turn += bleeding_turn
         if self.bleeding_turn >14:
-            self.bleeding_level = 3
+            self.bleeding_level = 4
         elif self.bleeding_turn >9:
-            self.bleeding_level = 2
+            self.bleeding_level = 3
         elif self.bleeding_turn > 4:
+            self.bleeding_level = 2
+        elif self.bleeding_turn > 0:
             self.bleeding_level = 1
         else:
             self.bleeding_level = 0
+            if attack_base != max_attack_base:
+                self.attack_base += self.recovery_attack_base_from_bleeding
+
 
     def bleeding(self):
-            if self.bleeding_turn > 0:
-                if self.bleeding_level == 3:
-                    self.receive_damage(round(self.hp*0.4)+10,"b")
-                    abd = round(self.attack_base * 0.15)
-                    self.attack_base -= abd
-                    self.recovery_attack_base_from_bleeding += abd
+        if self.bleeding_level == 4:
+            self.receive_damage(round(self.hp*0.4)+10,"b")
+            abd = round(self.attack_base * 0.15)
+            self.attack_base -= abd
+            self.recovery_attack_base_from_bleeding += abd
 
-                elif self.bleeding_level == 2:
-                    self.receive_damage(round(self.hp*0.3)+10,"b")
-                    abd = round(self.attack_base * 0.1)
-                    self.attack_base -= abd
-                    self.recovery_attack_base_from_bleeding += abd
+        elif self.bleeding_level == 3:
+            self.receive_damage(round(self.hp*0.3)+10,"b")
+            abd = round(self.attack_base * 0.1)
+            self.attack_base -= abd
+            self.recovery_attack_base_from_bleeding += abd
 
-                elif self.bleeding_level == 1:
-                    self.receive_damage(round(self.hp*0.2)+10,"b")
-                    abd = round(self.attack_base * 0.05)
-                    self.attack_base -= abd
-                    self.recovery_attack_base_from_bleeding += abd
+        elif self.bleeding_level == 2:
+            self.receive_damage(round(self.hp*0.2)+10,"b")
+            abd = round(self.attack_base * 0.05)
+            self.attack_base -= abd
+            self.recovery_attack_base_from_bleeding += abd
 
-                self.receive_bleeding_turn(-1)
-            if self.attack_base <=0:
-                self.attack_base = 1
-            if self.bleeding_turn<=0:
-                self.bleeding_turn = 0
-                self.attack_base += self.recovery_attack_base_from_bleeding
+        elif self.bleeding_level == 1:
+            self.receive_damage(round(self.hp*0.1)+10,"b")
+            abd = round(self.attack_base * 0.01)
+            self.attack_base -= abd
+            self.recovery_attack_base_from_bleeding += abd
+
+        if self.attack_base <=0:
+            self.attack_base = 1
+        self.receive_bleeding_turn(-1)
     ##睡眠
     def sleep_turn(arg):
         pass
@@ -212,20 +220,24 @@ class Human:
     def receive_defence_turn(self,defe_turn):
         self.defe_turn += defe_turn
         if self.defe_turn > 14:
-            self.defe_level = 3
+            self.defe_level = 4
         elif self.defe_turn > 9:
-            self.defe_level = 2
+            self.defe_level = 3
         elif self.defe_turn > 4:
-            self.defe_level =1
+            self.defe_level = 2
+        elif self.defe_turn > 0:
+            self.defe_level = 1
         else:
             self.defe_level = 0
 
     def defence():
-        if self.defe_level = 3:
+        if self.defe_level = 4:
             self.defe_rate = 2
-        elif self.defe_level = 2:
-            self.defe_rate = 1.6
-        elif self.defe_level =1:
+        elif self.defe_level = 3:
+            self.defe_rate = 1.8
+        elif self.defe_level =2:
+            self.defe_rate = 1.5
+        elif self.defe_level = 1:
             self.defe_rate = 1.2
         else:
             self.defe_rate = 1
@@ -252,38 +264,44 @@ class Human:
     def receive_critical_turn(self,turn):
         self.cri_turn += turn
         if self.cri_turn > 19:
-            self.cri_level = 4
+            self.cri_level = 5
         elif self.cri_turn > 14:
-            self.cri_level = 3
+            self.cri_level = 4
         elif self.cri_turn > 9:
-            self.cri_level = 2
+            self.cri_level = 3
         elif self.cri_turn > 4:
+            self.cri_level = 2
+        elif self.cri_turn > 0:
             self.cri_level = 1
         else:
             self.cri_level = 0
 
     def critical(self):
         cri = random.randint(1,100)
-        if self.cri_level == 4:
+        if self.cri_level == 5:
                 print("クリティカル")
                 self.cri_rate = 1.8
-        elif self.cri_level == 3:
+        elif self.cri_level == 4:
             if cri > 20:
                 print("クリティカル")
                 self.cri_rate = 1.5
+        elif self.cri_level == 3:
+            if cri >40:
+                print("クリティカル")
+                self.cri_rate = 1.5
         elif self.cri_level == 2:
-            if cri >45:
+            if cri > 60:
                 print("クリティカル")
                 self.cri_rate = 1.5
         elif self.cri_level == 1:
-            if cri > 70:
+            if cri > 80:
                 print("クリティカル")
                 self.cri_rate = 1.5
         elif self.cri_level == 0:
             if cri > 95:
                 print("クリティカル")
                 self.cri_rate = 1.5
-        self.cri_turn -= 1
+        receive_critical_turn(-1)
 
     def next_do(self):
         print("どうする？")
