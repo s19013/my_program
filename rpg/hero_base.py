@@ -198,7 +198,7 @@ class Human:
                     self.attack_base -= abd
                     self.recovery_attack_base_from_bleeding += abd
 
-                self.bleeding_turn -= 1
+                self.receive_bleeding_turn(-1)
             if self.attack_base <=0:
                 self.attack_base = 1
             if self.bleeding_turn<=0:
@@ -219,7 +219,7 @@ class Human:
             self.defe_level =1
         else:
             self.defe_level = 0
-            
+
     def defence():
         if self.defe_level = 3:
             self.defe_rate = 2
@@ -229,7 +229,7 @@ class Human:
             self.defe_rate = 1.2
         else:
             self.defe_rate = 1
-        self.defe_turn -=1
+        self.receive_defence_turn(-1)
 
 
 
