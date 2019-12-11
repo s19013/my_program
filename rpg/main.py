@@ -12,3 +12,6 @@ class Main:
         self.heros_list=[hum]
         self.enemy_list=[ene]
         self.orderlist = [self.hum,self.ene]
+
+    def damage_geter(self):
+        pass

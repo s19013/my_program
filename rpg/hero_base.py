@@ -1,7 +1,6 @@
 import random
 import math
 import sys
-import main
 from time import sleep
 
 class Human:
@@ -214,16 +213,26 @@ class Human:
         self.defe_turn += defe_turn
         if self.defe_turn > 14:
             self.defe_level = 3
-            self.defe_rate = 2
         elif self.defe_turn > 9:
             self.defe_level = 2
-            self.defe_rate = 1.6
         elif self.defe_turn > 4:
             self.defe_level =1
+        else:
+            self.defe_level = 0
+            
+    def defence():
+        if self.defe_level = 3:
+            self.defe_rate = 2
+        elif self.defe_level = 2:
+            self.defe_rate = 1.6
+        elif self.defe_level =1:
             self.defe_rate = 1.2
         else:
-            self.defe_level =0
             self.defe_rate = 1
+        self.defe_turn -=1
+
+
+
     def guard(self):
         print(self.name+"は攻撃に備えた")
         self.defe = True
@@ -233,10 +242,12 @@ class Human:
         ##仮書き　後ほど編集
         self.critical()
         a = damage * self.cri_rate * self.power_rate
-        
         print("{}の攻撃".format(self.name))
         sleep(0.5)
         self.attack_d = round(a)
+
+    def attack_seter(self):
+        pass
 
     def receive_critical_turn(self,turn):
         self.cri_turn += turn
