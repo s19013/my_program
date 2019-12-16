@@ -14,7 +14,7 @@ class Main:
         self.heros_died = False
         self.enemy_died = False
 
-
+#順番ぎめ
     def criate_heros(self):
         self.man = hero_base.Human("man","hero","debug",200,100,100)
         self.heros_list_f.append(self.man)
@@ -76,12 +76,9 @@ class Main:
         self.enemy_died = True
         print("you loose")
 
-
-
-
-
+#主人公たちの行動
     def hero_next_do(self,hero_name):
-        print("どうする？")
+        print("\nどうする？")
         try:
             want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
         except Exception as e:
@@ -91,20 +88,17 @@ class Main:
             if want_do == 1:
                 self.single_attack(hero_name)
                 # self.attack(self.attack_base)
-            if want_do == 2:
+            elif want_do == 2:
                 return hero_name.guard()
-            if want_do == 3:
+            elif want_do == 3:
                 return print("comming soon")
-            if want_do == 4:
+            elif want_do == 4:
                 return print("comming soon")
-            if want_do == 5:
+            elif want_do == 5:
                 return self.show(hero_name)
         else:
             print("\n入力し直し")
             self.hero_next_do()
-
-    def enemy_next_do(self,enemy_name):
-        self.man.receive_damage(enemy_name.attack_base)
 
     def single_attack(self,hero_name):
         print("0で戻る {}".format(self.enemy_list_to_show))
@@ -118,12 +112,21 @@ class Main:
         else:
             hero_name.attack(hero_name.attack_base)
             self.single_damage_geter(self.enemy_list_s[target - 1],hero_name.set_attack)
+#敵の行動
+    def enemy_next_do(self,enemy_name):
+        enemy_name.next_do()
+        if enemy_name.want_do_setter == 1:
+            target = random.choice(self.heros_list_s)
+            # enemy_name.attack(enemy_name.attack_base)
+            self.single_damage_geter(target,enemy_name.set_attack)
+        else:
+            pass
 
+#単体攻撃ゲッター
     def single_damage_geter(self,target_name,damage):
             target_name.receive_damage(damage)
 
-
-
+#ステータス表示
     def show(self,hero_name):
         self.man.show()
         self.ene.show()

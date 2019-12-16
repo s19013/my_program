@@ -3,7 +3,7 @@ import enemy_base
 import os
 import subprocess
 # 生成
-man=hero_base.Human("man","debug",90,100,100)
+man=hero_base.Human("man","hero","debug",90,100,100)
 
 # テスト用関数
 s = 0
@@ -69,6 +69,7 @@ def guard_test(df = 0):
     man.receive_defence_turn(df)
     man.guard()
     man.receive_damage(100)
+    print("level:" + man.defe_level)
 
 # def next_do_test():
 #     man.next_do()

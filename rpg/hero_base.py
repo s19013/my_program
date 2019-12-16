@@ -80,9 +80,6 @@ class Human:
         self.defence()
         self.defe = False
 
-
-
-
     def use_mp(self,used):
         self.mp -= used
         if self.mp > 0:
@@ -126,9 +123,10 @@ class Human:
             if type == "n":
                 if self.defe == True:
                     damage = round(damage/(1.05 * self.defe_rate))
-                    print(damage)
-                    print(self.defe_level)
+                    # DEBUG: print(damage)
+                    # DEBUG: print(self.defe_level)
                     self.hp-= damage
+                    self.defe == False
                 else:
                     self.hp-= damage
                 sleep(0.1)
@@ -258,9 +256,9 @@ class Human:
 #攻撃
     def attack(self,damage):
         ##仮書き　後ほど編集
+        print("{}の攻撃".format(self.name))
         self.critical()
         a = damage * self.cri_rate * self.power_rate
-        print("{}の攻撃".format(self.name))
         sleep(0.1)
         # self.attack_d = round(a)
         self.attack_seter_func(round(a))
