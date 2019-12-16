@@ -11,21 +11,21 @@ class Human:
         self.job = job
         self.max_hp = self.hp = hp
         self.max_mp = self.mp = mp
-        #--------------------------
+#攻撃に関する変数------------------------------
         self.max_attack_base = self.attack_base = attack_base
         self.pow_level = 0
         self.power_up_turn = 0
         self.power_rate = 1
-#---------------------------
+#防御に関する変数---------------------------
         self.defe = False
         self.defe_level = 0
         self.defe_turn = 0
         self.defe_rate = 1
-#----------------------------
+#クリティカルに関する変数----------------------------
         self.cri_level = 0
         self.cri_turn = 0
         self.cri_rate = 1
-#-----------------------------
+#状態異常に関する変数-----------------------------
         self.poison_level = 0
         self.poison_turn = 0
         self.mahi_level = 0
@@ -34,12 +34,17 @@ class Human:
         self.bleeding_turn = 0
         self.recovery_attack_base_from_bleeding = 0
         self.sleep = False
-#-------------------------------
+#生死に関する変数-------------------------------
         self.live = True
         self.already_die = False
+#行動に関する変数-------------------------------------
         self.lest_turn = 0
-#-----------------------------------
+        self.done = False
+#geter,seterの代わり--------------------------
+        self.set_attack = 0
+#デバックよう-----------------------------------
         self.attack_d = 0 # DEBUG:
+
 
     def show(self):
         box=[]
@@ -231,13 +236,13 @@ class Human:
             self.defe_level = 0
 
     def defence():
-        if self.defe_level = 4:
+        if self.defe_level == 4:
             self.defe_rate = 2
-        elif self.defe_level = 3:
+        elif self.defe_level == 3:
             self.defe_rate = 1.8
-        elif self.defe_level =2:
+        elif self.defe_level == 2:
             self.defe_rate = 1.5
-        elif self.defe_level = 1:
+        elif self.defe_level == 1:
             self.defe_rate = 1.2
         else:
             self.defe_rate = 1
@@ -256,10 +261,11 @@ class Human:
         a = damage * self.cri_rate * self.power_rate
         print("{}の攻撃".format(self.name))
         sleep(0.5)
-        self.attack_d = round(a)
+        # self.attack_d = round(a)
+        self.attack_seter_func(round(a))
 
-    def attack_seter(self):
-        pass
+    def attack_seter_func(self,damage):
+        self.set_attack = damage
 
     def receive_critical_turn(self,turn):
         self.cri_turn += turn
@@ -301,26 +307,27 @@ class Human:
             if cri > 95:
                 print("クリティカル")
                 self.cri_rate = 1.5
-        receive_critical_turn(-1)
+        self.receive_critical_turn(-1)
 
-    def next_do(self):
-        print("どうする？")
-        try:
-            want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
-        except Exception as e:
-            print("\n入力し直し")
-            self.next_do()
-        if 1<=want_do and want_do<=5:
-            if want_do == 1:
-                return self.attack(self.attack_base)
-            if want_do == 2:
-                return self.guard()
-            if want_do == 3:
-                return print("comming soon")
-            if want_do == 4:
-                return print("comming soon")
-            if want_do == 5:
-                return self.show()
-        else:
-            print("\n入力し直し")
-            self.next_do()
+    # def next_do(self):
+    #     print("どうする？")
+    #     try:
+    #         want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
+    #     except Exception as e:
+    #         print("\n入力し直し")
+    #         self.next_do()
+    #     if 1<=want_do and want_do<=5:
+    #         if want_do == 1:
+    #             return
+    #             # self.attack(self.attack_base)
+    #         if want_do == 2:
+    #             return self.guard()
+    #         if want_do == 3:
+    #             return print("comming soon")
+    #         if want_do == 4:
+    #             return print("comming soon")
+    #         if want_do == 5:
+    #             return self.show()
+    #     else:
+    #         print("\n入力し直し")
+    #         self.next_do()

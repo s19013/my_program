@@ -1,5 +1,9 @@
 import main
+from hero_base import Human
+from enemy_base import Slime
 
-main=main.Main()
 
-main.criate_crature()
+m=main.Main()
+m.criate_heros()
+m.criate_enemys()
+m.decide_order()

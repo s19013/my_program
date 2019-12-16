@@ -70,7 +70,7 @@ def guard_test(df = 0):
     man.guard()
     man.receive_damage(100)
 
-def next_do_test():
-    man.next_do()
+# def next_do_test():
+#     man.next_do()
 
 guard_test()
