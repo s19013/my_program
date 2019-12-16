@@ -5,10 +5,11 @@ from time import sleep
 
 class Human:
     """主要キャラのベース"""
-    def __init__(self,name,job,hp,mp,attack_base):
+    def __init__(self,name,tag,job,hp,mp,attack_base):
 
         self.name = name
         self.job = job
+        self.tag = tag
         self.max_hp = self.hp = hp
         self.max_mp = self.mp = mp
 #攻撃に関する変数------------------------------
@@ -130,15 +131,15 @@ class Human:
                     self.hp-= damage
                 else:
                     self.hp-= damage
-                sleep(0.5)
+                sleep(0.1)
                 print("\n{}は{}のダメージを受けた".format(self.name,damage))
             elif type == "p":
                 self.hp-=damage
-                sleep(0.5)
+                sleep(0.1)
                 print("\n{}は毒で{}のダメージを受けた".format(self.name,damage))
             elif type == "b":
                 self.hp -= damage
-                sleep(0.5)
+                sleep(0.1)
                 print("\n{}は出血で{}のダメージを受けた".format(self.name,damage))
         if self.hp <= 0 and self.already_die == False:
             print("{}は死んでしまった".format(self.name))
@@ -260,7 +261,7 @@ class Human:
         self.critical()
         a = damage * self.cri_rate * self.power_rate
         print("{}の攻撃".format(self.name))
-        sleep(0.5)
+        sleep(0.1)
         # self.attack_d = round(a)
         self.attack_seter_func(round(a))
 

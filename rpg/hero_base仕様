@@ -2,6 +2,7 @@ hero_base：
 __init__変数
 名前
 職業
+tag
 最大hpとhp
 最大mpとmp
 -----------------

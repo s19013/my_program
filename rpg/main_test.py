@@ -6,4 +6,4 @@ from enemy_base import Slime
 m=main.Main()
 m.criate_heros()
 m.criate_enemys()
-m.decide_order()
+m.make_lists()
