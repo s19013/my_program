@@ -39,10 +39,11 @@ class Main:
             if name.live == True:
                 self.enemy_list_s.append(name)
                 self.everyone_list.append(name)
-        #全員
+        #表示用
         for i,name in enumerate(self.enemy_list_s,1):
             tmp = "{}:{}".format(i,name.name)
             self.enemy_list_to_show.append(tmp)
+        self.enemy_list_to_show.insert(0,"0:戻る")
         self.check()
         # self.decide_order()
 
@@ -53,9 +54,9 @@ class Main:
 
     def check(self):
         if len(self.enemy_list_s) == 0:
-            self.heros_died_setter()
-        elif len(self.heros_list_s) == 0:
             self.enemy_died_setter()
+        elif len(self.heros_list_s) == 0:
+            self.heros_died_setter()
         else:
             self.decide_order()
 
@@ -70,11 +71,11 @@ class Main:
 
     def heros_died_setter(self):
         self.heros_died =True
-        print("you win")
+        print("you loose")
 
     def enemy_died_setter(self):
         self.enemy_died = True
-        print("you loose")
+        print("you win")
 
 #主人公たちの行動
     def hero_next_do(self,hero_name):
@@ -101,14 +102,14 @@ class Main:
             self.hero_next_do()
 
     def single_attack(self,hero_name):
-        print("0で戻る {}".format(self.enemy_list_to_show))
+        print("{}".format(self.enemy_list_to_show))
         try:
             target = int(input("ターゲットは？"))
         except Exception as e:
             print("\n入力し直し")
             self.single_attack(hero_name)
         if target == 0:
-            self.single_attack(hero_name)
+            self.hero_next_do(hero_name)
         else:
             hero_name.attack(hero_name.attack_base)
             self.single_damage_geter(self.enemy_list_s[target - 1],hero_name.set_attack)

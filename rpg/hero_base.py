@@ -308,25 +308,6 @@ class Human:
                 self.cri_rate = 1.5
         self.receive_critical_turn(-1)
 
-    # def next_do(self):
-    #     print("どうする？")
-    #     try:
-    #         want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
-    #     except Exception as e:
-    #         print("\n入力し直し")
-    #         self.next_do()
-    #     if 1<=want_do and want_do<=5:
-    #         if want_do == 1:
-    #             return
-    #             # self.attack(self.attack_base)
-    #         if want_do == 2:
-    #             return self.guard()
-    #         if want_do == 3:
-    #             return print("comming soon")
-    #         if want_do == 4:
-    #             return print("comming soon")
-    #         if want_do == 5:
-    #             return self.show()
-    #     else:
-    #         print("\n入力し直し")
-    #         self.next_do()
+    def skill(self):
+        skill_list=["0:戻る","1:集中","2:毒","3:強切り"]
+        want_skill=int(input())
