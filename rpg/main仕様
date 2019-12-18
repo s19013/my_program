@@ -1,2 +1,34 @@
 Main:
 __init__()
+参加する主人公たちのリスト
+戦闘続行可能な主人公たちのリスト
+参加する敵のリスト
+戦闘続行可能な敵たちのリスト
+表示用の戦闘続行可能な敵たちのリスト
+戦闘続行可能な全員のリスト
+主人公たちが死んだかどうか
+敵たちが死んだかどうか
+--------------------------------------------------------
+make_lists()
+heros_list_s,enemy_list_s,everyone_list,enemy_list_to_showの中身を空にする
+heros_list_fから一人ずつ生きているかどうか調べる
+  生きているならheros_list_s,everyone_listに追加する
+enemy_list_fから一人ずつ生きているかどうか調べる
+   生きているならenemys_list_s,everyone_listに追加する
+enemys_list_sから”数字：要素”とゆう感じにして表示用に淹れる
+check()を呼ぶ
+----------------------------------------------------------
+decide_order()
+everyone_listをシャッフルする
+----------------------------------------------------------
+check()
+enemy_list_s,heros_list_sの要素数を調べる
+enemy_list_sの要素数が0になったらenemy_died_setter()を呼ぶ
+heros_list_sの要素数が0になったらheros_died_setter()を呼ぶ
+どれにも当てはまらないときはdecide_order()を呼ぶ
+-------------------------------------------------------------
+start_turn()
+everyone_listから一人ずつ取り出し
+tagがheroの時hero_next_do()を呼ぶ
+tagがenemyの時enemy_next_do()を呼ぶ
+終わったらmake_lists()をよぶ

@@ -47,11 +47,6 @@ class Main:
         self.check()
         # self.decide_order()
 
-    def decide_order(self):
-        random.shuffle(self.everyone_list)
-        self.start_turn()
-
-
     def check(self):
         if len(self.enemy_list_s) == 0:
             self.enemy_died_setter()
@@ -59,6 +54,11 @@ class Main:
             self.heros_died_setter()
         else:
             self.decide_order()
+
+    def decide_order(self):
+        random.shuffle(self.everyone_list)
+        self.start_turn()
+
 
     def start_turn(self):
         for name in self.everyone_list:
@@ -75,7 +75,7 @@ class Main:
 
     def enemy_died_setter(self):
         self.enemy_died = True
-        print("you win")# DEBUG: 
+        print("you win")# DEBUG:
 
 #主人公たちの行動
     def hero_next_do(self,hero_name):
