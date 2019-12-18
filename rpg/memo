@@ -12,3 +12,13 @@ mainの方でターゲットを決めたり、
 数字とかをとある関数に入れとく
 そしてmainでその関数の数字などを受取、対応する関数に渡す
 変数の方がいいかも
+
+
+guardを少し変えた方がいい
+
+mainのsingle_attackを編集
+敵用のsingle_attackを作る
+
+def skill(self):
+    skill_list=["0:戻る","1:集中","2:毒","3:強切り"]
+    want_skill=int(input())

@@ -71,11 +71,11 @@ class Main:
 
     def heros_died_setter(self):
         self.heros_died =True
-        print("you loose")
+        print("you loose")# DEBUG:
 
     def enemy_died_setter(self):
         self.enemy_died = True
-        print("you win")
+        print("you win")# DEBUG: 
 
 #主人公たちの行動
     def hero_next_do(self,hero_name):
@@ -87,7 +87,7 @@ class Main:
             self.next_do()
         if 1<=want_do and want_do<=5:
             if want_do == 1:
-                self.single_attack(hero_name)
+                self.single_attack_from_heros(hero_name)
                 # self.attack(self.attack_base)
             elif want_do == 2:
                 return hero_name.guard()
@@ -101,31 +101,32 @@ class Main:
             print("\n入力し直し")
             self.hero_next_do()
 
-    def single_attack(self,hero_name):
+    def single_attack_from_heros(self,hero_name):
         print("{}".format(self.enemy_list_to_show))
         try:
             target = int(input("ターゲットは？"))
         except Exception as e:
             print("\n入力し直し")
-            self.single_attack(hero_name)
+            self.single_attack_from_heros(hero_name)
         if target == 0:
             self.hero_next_do(hero_name)
         else:
             hero_name.attack(hero_name.attack_base)
-            self.single_damage_geter(self.enemy_list_s[target - 1],hero_name.set_attack)
+            self.damage_geter(self.enemy_list_s[target - 1],damage=hero_name.set_attack)
 #敵の行動
     def enemy_next_do(self,enemy_name):
         enemy_name.next_do()
         if enemy_name.want_do_setter == 1:
             target = random.choice(self.heros_list_s)
             # enemy_name.attack(enemy_name.attack_base)
-            self.single_damage_geter(target,enemy_name.set_attack)
+            self.damage_geter(target,damage=enemy_name.set_attack)
         else:
             pass
 
-#単体攻撃ゲッター
-    def single_damage_geter(self,target_name,damage):
-            target_name.receive_damage(damage)
+#攻撃ゲッター
+    def damage_geter(self,*target_name,damage):
+        for T in target_name:
+            T.receive_damage(damage)
 
 #ステータス表示
     def show(self,hero_name):

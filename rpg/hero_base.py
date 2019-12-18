@@ -307,7 +307,3 @@ class Human:
                 print("クリティカル")
                 self.cri_rate = 1.5
         self.receive_critical_turn(-1)
-
-    def skill(self):
-        skill_list=["0:戻る","1:集中","2:毒","3:強切り"]
-        want_skill=int(input())
