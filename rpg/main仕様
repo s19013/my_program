@@ -32,3 +32,9 @@ everyone_listから一人ずつ取り出し
 tagがheroの時hero_next_do()を呼ぶ
 tagがenemyの時enemy_next_do()を呼ぶ
 終わったらmake_lists()をよぶ
+----------------------------------------
+heros_died_setter()
+heros_died ← True
+----------------------------------
+enemy_died_setter()
+enemy_died ← True
