@@ -8,10 +8,12 @@ class Item:
     au = 10
     du = 10
     cu = 10
-    anti_p = 10
-    oukyu = 10
+    anti_p = -5
+    oukyu = -5
     re = 10
     re_ex = 5
     re_S = 2
 
-    
+    poison = 5
+    ad = 5
+    dd = 5
