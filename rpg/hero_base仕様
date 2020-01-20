@@ -14,11 +14,11 @@ tag
 防御中か否か
 防御力レベル
 防御力ターン
-防御倍率
+//防御倍率
 ------------------
 クリティカルレベル
 クリティカルターン
-クリティカル倍率
+//クリティカル倍率
 ------------------
 毒レベル
 毒ターン
@@ -90,16 +90,18 @@ recovery_mp(care_mp)
 #ダメージ系
 receive_damage(damage,type)
   hpを減らす関数
+  defence_rate = defence()
   生きている
     type = "n"
       防御中
-        damage ← damage　- (1.2 * 防御倍率)
-        自分のhp ←　自分のダメージ　-　damage
+        damage ← damage　/ (1.05 * defence_rate)
+        自分のhp ←　hp　-　damage
         ＃少数四捨五入
         防御　= False
         #スイッチを切る
       他
-        自分のhp ←　自分のダメージ　-　damage
+        damage ←　damage/defence_rate
+        自分のhp ←　自分のhp- damage
         出力:「（自分の名前）は（damage）のダメージを受けた」
     type = "p"
       自分のhp ←　自分のダメージ　-　damage
@@ -184,15 +186,15 @@ receive_defence_turn(defe_turn)
   0~:0
 defence()
   防御倍率を管理する関数
-  レベルに応じて防御倍率を変える
+  defe_turnを1減らす
+  receive_defence_turn(-1)
+  レベルに応じて防御倍率を返す
   Lv:rate
   4:2
   3:1.8
   2:1.5
   1:1.2
   0:1
-  defe_turnを1減らす
-  receive_defence_turn(-1)
 ---------------------------------------------
 #攻撃
 attack(damage)
@@ -207,11 +209,11 @@ receive_critical_turn(turn)
   レベルが上がるほどクリティカルの可能性が上がる
   死ぬとリセットされる
   turn:Lv
-  ~20:5
-  19~15:4
-  14~10:3
-  9~5:2
-  4~1:1
+  ~21:5
+  20~16:4
+  15~11:3
+  10~6:2
+  5~1:1
   0~:0
 
 

@@ -21,11 +21,11 @@ class Human:
         self.defe = False
         self.defe_level = 0
         self.defe_turn = 0
-        self.defe_rate = 1
+        # self.defe_rate = 1
 #クリティカルに関する変数----------------------------
         self.cri_level = 0
         self.cri_turn = 0
-        self.cri_rate = 1
+        #self.cri_rate = 1
 #状態異常に関する変数-----------------------------
         self.poison_level = 0
         self.poison_turn = 0
@@ -77,7 +77,7 @@ class Human:
         # 出血
         self.poison()
         self.bleeding()
-        self.defence()
+        # self.defence()
         self.defe = False
 
     def use_mp(self,used):
@@ -120,25 +120,27 @@ class Human:
 
     def receive_damage(self,damage,type="n"):
         if self.live == True:
+            defence_rate = self.defence()
             if type == "n":
                 if self.defe == True:
-                    damage = round(damage/(1.05 * self.defe_rate))
+                    damage = round(damage/(1.05 * defence_rate))
                     # DEBUG: print(damage)
                     # DEBUG: print(self.defe_level)
                     self.hp-= damage
                     self.defe == False
                 else:
+                    damage = round(damage / defence_rate)
                     self.hp-= damage
                 sleep(0.1)
-                print("\n{}は{}のダメージを受けた".format(self.name,damage))
+                print("{}は{}のダメージを受けた\n".format(self.name,damage))
             elif type == "p":
                 self.hp-=damage
                 sleep(0.1)
-                print("\n{}は毒で{}のダメージを受けた".format(self.name,damage))
+                print("{}は毒で{}のダメージを受けた\n".format(self.name,damage))
             elif type == "b":
                 self.hp -= damage
                 sleep(0.1)
-                print("\n{}は出血で{}のダメージを受けた".format(self.name,damage))
+                print("{}は出血で{}のダメージを受けた\n".format(self.name,damage))
         if self.hp <= 0 and self.already_die == False:
             print("{}は死んでしまった".format(self.name))
             self.already_die = True
@@ -149,11 +151,11 @@ class Human:
     #毒
     def receive_poison_turn(self,poison_turn):
         self.poison_turn += poison_turn
-        if self.poison_turn >14:
+        if self.poison_turn >15:
             self.poison_level = 4
-        elif self.poison_turn >9:
+        elif self.poison_turn >10:
             self.poison_level = 3
-        elif self.poison_turn > 4:
+        elif self.poison_turn > 5:
             self.poison_level = 2
         elif self.poison_turn >0:
             self.poison_level = 1
@@ -174,11 +176,11 @@ class Human:
     #出血
     def receive_bleeding_turn(self,bleeding_turn):
         self.bleeding_turn += bleeding_turn
-        if self.bleeding_turn >14:
+        if self.bleeding_turn >15:
             self.bleeding_level = 4
-        elif self.bleeding_turn >9:
+        elif self.bleeding_turn >10:
             self.bleeding_level = 3
-        elif self.bleeding_turn > 4:
+        elif self.bleeding_turn > 5:
             self.bleeding_level = 2
         elif self.bleeding_turn > 0:
             self.bleeding_level = 1
@@ -223,58 +225,40 @@ class Human:
 #防御
     def receive_defence_turn(self,defe_turn):
         self.defe_turn += defe_turn
-        if self.defe_turn > 14:
+        if self.defe_turn > 15:
             self.defe_level = 4
-        elif self.defe_turn > 9:
+        elif self.defe_turn > 10:
             self.defe_level = 3
-        elif self.defe_turn > 4:
+        elif self.defe_turn > 5:
             self.defe_level = 2
         elif self.defe_turn > 0:
             self.defe_level = 1
         else:
             self.defe_level = 0
 
-    def defence():
-        if self.defe_level == 4:
-            self.defe_rate = 2
-        elif self.defe_level == 3:
-            self.defe_rate = 1.8
-        elif self.defe_level == 2:
-            self.defe_rate = 1.5
-        elif self.defe_level == 1:
-            self.defe_rate = 1.2
-        else:
-            self.defe_rate = 1
+    def defence(self):
         self.receive_defence_turn(-1)
-
-
-
-    def guard(self):
-        print(self.name+"は攻撃に備えた")
-        self.defe = True
+        if self.defe_level == 4:
+            return 2
+        elif self.defe_level == 3:
+            return 1.8
+        elif self.defe_level == 2:
+            return 1.5
+        elif self.defe_level == 1:
+            return 1.2
+        else:
+            return 1
 
 #攻撃
-    def attack(self,damage):
-        ##仮書き　後ほど編集
-        print("{}の攻撃".format(self.name))
-        self.critical()
-        a = damage * self.cri_rate * self.power_rate
-        sleep(0.1)
-        # self.attack_d = round(a)
-        self.attack_seter_func(round(a))
-
-    def attack_seter_func(self,damage):
-        self.set_attack = damage
-
     def receive_critical_turn(self,turn):
         self.cri_turn += turn
-        if self.cri_turn > 19:
+        if self.cri_turn > 20:
             self.cri_level = 5
-        elif self.cri_turn > 14:
+        elif self.cri_turn > 15:
             self.cri_level = 4
-        elif self.cri_turn > 9:
+        elif self.cri_turn > 10:
             self.cri_level = 3
-        elif self.cri_turn > 4:
+        elif self.cri_turn > 5:
             self.cri_level = 2
         elif self.cri_turn > 0:
             self.cri_level = 1
@@ -283,27 +267,44 @@ class Human:
 
     def critical(self):
         cri = random.randint(1,100)
+        self.receive_critical_turn(-1)
         if self.cri_level == 5:
                 print("クリティカル")
-                self.cri_rate = 1.8
+                return 1.8 #ボーナス
         elif self.cri_level == 4:
             if cri > 20:
                 print("クリティカル")
-                self.cri_rate = 1.5
+                return 1.5
         elif self.cri_level == 3:
             if cri >40:
                 print("クリティカル")
-                self.cri_rate = 1.5
+                return 1.5
         elif self.cri_level == 2:
             if cri > 60:
                 print("クリティカル")
-                self.cri_rate = 1.5
+                return 1.5
         elif self.cri_level == 1:
             if cri > 80:
                 print("クリティカル")
-                self.cri_rate = 1.5
+                return 1.5
         elif self.cri_level == 0:
             if cri > 95:
                 print("クリティカル")
-                self.cri_rate = 1.5
-        self.receive_critical_turn(-1)
+                return 1.5
+        return 1 #どれにも
+##行動
+    def guard(self):
+        print(self.name+"は攻撃に備えた")
+        self.defe = True
+
+    def attack(self,damage):
+        ##仮書き　後ほど編集
+        print("{}の攻撃".format(self.name))
+        cri_rate = self.critical()
+        a = damage * cri_rate * self.power_rate
+        sleep(0.1)
+        # self.attack_d = round(a)
+        self.attack_setter(round(a))
+
+    def attack_setter(self,damage):
+        self.set_attack = damage
