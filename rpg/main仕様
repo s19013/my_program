@@ -38,3 +38,28 @@ heros_died ← True
 ----------------------------------
 enemy_died_setter()
 enemy_died ← True
+-----------------------------------
+hero_next_do(hero_name)
+リストの中からしたいことを数字で受け取る
+変数want_do　←　入力
+決められた数字以外を受け取ると、関数の最初からやり直しさせる
+want_do == 1
+  → single_attack_from_heros(する人の名前)をよぶ
+want_do == 2
+  → hero_name.guard　を呼ぶ
+want_do == 3
+want_do == 4
+want_do == 5
+-----------------------------------
+single_attack_from_heros(hero_name）
+生きてる敵のリストを表示
+ターゲットを数字で受け取る
+target　←　入力
+決められた数字以外は弾く
+target == 0
+ hero_next_do(行動する人の名前)に戻る
+target == 他の数字
+hero_name.attack(hero_name.attack_base)を呼ぶ
+hero_name.set_attackより数字を受け取る
+damage_geter(self.enemy_list_s[target - 1],damage=hero_name.set_attack)
+------------------------------------

@@ -1,5 +1,6 @@
 import hero_base
 import enemy_base
+import man1
 import random
 # from hero_base import Human
 # from enemy_base import Slime
@@ -16,7 +17,8 @@ class Main:
 
 #順番ぎめ
     def criate_heros(self):
-        self.man = hero_base.Human("man","hero","debug",200,100,100)
+        # self.man = hero_base.Human("man","hero","debug",200,100,100)
+        self.man = man1.Fighter("man","hero","debug",200,100,100)
         self.heros_list_f.append(self.man)
 
     def criate_enemys(self):
@@ -81,18 +83,19 @@ class Main:
     def hero_next_do(self,hero_name):
         print("\nどうする？")
         try:
-            want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス"))
+            want_do = int(input("1:攻撃 2:防御 3:必殺技 4:アイテム 5:ステータス\n"))
         except Exception as e:
             print("\n入力し直し")
             self.next_do()
         if 1<=want_do and want_do<=5:
             if want_do == 1:
-                self.single_attack_from_heros(hero_name)
+                self.single_attack_from_heros(hero_name,hero_name.attack_base)
                 # self.attack(self.attack_base)
             elif want_do == 2:
                 return hero_name.guard()
             elif want_do == 3:
-                return print("comming soon")
+                hero_name.skill()
+                self.skill_getter(hero_name)
             elif want_do == 4:
                 return print("comming soon")
             elif want_do == 5:
@@ -100,8 +103,8 @@ class Main:
         else:
             print("\n入力し直し")
             self.hero_next_do()
-
-    def single_attack_from_heros(self,hero_name):
+#単体攻撃
+    def single_attack_from_heros(self,hero_name,damage,etc="n"):
         print("{}".format(self.enemy_list_to_show))
         try:
             target = int(input("ターゲットは？"))
@@ -111,8 +114,13 @@ class Main:
         if target == 0:
             self.hero_next_do(hero_name)
         else:
-            hero_name.attack(hero_name.attack_base)
-            self.damage_geter(self.enemy_list_s[target - 1],damage=hero_name.set_attack)
+            if etc=="n":
+                hero_name.attack(damage)
+                self.damage_geter(self.enemy_list_s[target - 1],damage=hero_name.set_attack)
+            elif etc=="p":
+                pass
+
+#
 #敵の行動
     def enemy_next_do(self,enemy_name):
         enemy_name.next_do()
@@ -127,6 +135,18 @@ class Main:
     def damage_geter(self,*target_name,damage):
         for T in target_name:
             T.receive_damage(damage)
+
+    def skill_getter(self,hero_name):
+        skill = hero_name.set_skill
+        if skill=="back":
+            self.hero_next_do(hero_name)
+        elif skill == "buf":
+            pass
+        elif skill == "single_attack":
+            self.single_attack_from_heros(hero_name,hero_name.skill_damage)
+
+
+
 
 #ステータス表示
     def show(self,hero_name):
